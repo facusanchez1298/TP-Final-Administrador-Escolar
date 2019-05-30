@@ -12,9 +12,11 @@ namespace tp_lab_3
 {
     public partial class Form1 : Form
     {
+        Conexion conexion = new Conexion();
         public Form1()
         {
             InitializeComponent();
+            conexion.crearBaseDeDatos();
         }
     }
 }
