@@ -23,7 +23,7 @@ namespace tp_lab_3
         /// alumno
         /// curso
 
-        string crearTablaAlu_Asig = "create table if not exists alumno_asignatura(" +
+        string crearTablaAlu_Asig =     "create table if not exists alumno_asignatura(" +
                                             "dni_alumno int not null," +
                                             "id_asignatura int not null," +
                                             "aprobada boolean not null," +
@@ -31,21 +31,21 @@ namespace tp_lab_3
                                             "FOREIGN KEY(dni_alumno) REFERENCES Alumno(dni_alumno)," +
                                             "FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id_asignatura));";
 
-        string creatTablaProf_Asig = "create table if not exists Profesor_Asignatura(" +
+        string creatTablaProf_Asig =     "create table if not exists Profesor_Asignatura(" +
                                             "dni_profesor int not null," +
                                             "id_asignatura int not null," +
                                             "primary key(dni_profesor, id_asignatura)," +
                                             "FOREIGN KEY(dni_profesor) REFERENCES Profesor(dni)," +
                                             "FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id_asignatura));";
 
-        string crearTablaCurso_Asig = "create table if not exists Curso_Asignatura(" +
+        string crearTablaCurso_Asig =    "create table if not exists Curso_Asignatura(" +
                                             "año_division varchar not null," +
                                             "id_asignatura int not null," +
                                             "primary key(año_division, id_asignatura)," +
                                             "FOREIGN KEY(año_division) REFERENCES Curso(año_division)," +
                                             "FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id_asignatura));";
 
-        string crearTablaExamenes = "create table if not exists Examen(" +
+        string crearTablaExamenes =      "create table if not exists Examen(" +
                                             "id_asignatura int not null," +
                                             "dni_Alumno int not null," +
                                             "primerParcial int default -1," +
@@ -55,12 +55,12 @@ namespace tp_lab_3
                                             "segundoRecuperatorio int default -1," +
                                             "primary key(id_asignatura, dni_Alumno));";
 
-        string crearTablaCorrelatividad = "create table if not exists Correlatividad(" +
+        string crearTablaCorrelatividad ="create table if not exists Correlatividad(" +
                                             "regular int," +
                                             "aprobada int," +
                                             "para_cursar int);";
 
-        string crearTablaProfesor = "create table if not exists Profesor(" +
+        string crearTablaProfesor =     "create table if not exists Profesor(" +
                                             "dni int primary key not null," +
                                             "nombre varchar not null," +
                                             "apellido varchar," +
@@ -68,19 +68,19 @@ namespace tp_lab_3
                                             "telefono int," +
                                             "delCentro boolean);";
 
-        string crearTablaAsignatura = "create table if not exists asignatura(" +
+        string crearTablaAsignatura =   "create table if not exists asignatura(" +
                                             "id_asignatura int primary key," +
                                             "nombre varchar not null," +
                                             "correlativas int);";
 
 
-        string crearTablaAula = "create table if not exists aula(" +
+        string crearTablaAula =         "create table if not exists aula(" +
                                             "numero int PRIMARY KEY," +
                                             "capacidad int not null," +
                                             "internet boolean not null," +
                                             "proyector boolean not null);";
 
-        string crearTablaAlumno = "create table if not exists alumno(" +
+        string crearTablaAlumno =       "create table if not exists alumno(" +
                                             "dni int primary key," +
                                             "matricula int," +
                                             "nombre varchar not null," +
@@ -88,10 +88,19 @@ namespace tp_lab_3
                                             "direccion varchar," +
                                             "telefono int);";
 
-        string crearTablaCurso = "create table if not exists Curso(" +
+        string crearTablaCurso =         "create table if not exists Curso(" +
                                             "año_division varchar primary key," +
                                             "alumnos int," +
                                             "aulas int);";
+        /// <summary>
+        /// los tipos que deberian ir son alumno, profesor o bedel
+        /// </summary>
+        string crearTablaUsuario =       "create table if not exists usuario(" +
+                                            "usuario int not null," +
+                                            "contraseña varchar not null," +
+                                            "tipo varchar not null);";
+
+
         //
         //
         //
@@ -167,7 +176,7 @@ namespace tp_lab_3
 
                 //preparamos un objeto que va a ejecutar todo el comando
                 command = new SQLiteCommand(crearTablaAlu_Asig +crearTablaCurso_Asig + creatTablaProf_Asig + crearTablaProfesor + crearTablaAula + crearTablaAlumno
-                   + crearTablaCurso + crearTablaExamenes + crearTablaCorrelatividad + crearTablaAsignatura, connection);
+                   + crearTablaCurso + crearTablaExamenes + crearTablaCorrelatividad + crearTablaAsignatura + crearTablaUsuario, connection);
 
 
                 //ejecutamos el comando
@@ -191,12 +200,72 @@ namespace tp_lab_3
         //
         //
         //
+        //      registro e inicio de sesion 
+        //
+        //
+        //
+        public void crearUsuario(int usuario, string contraseña, string tipo)
+        {
+            try
+            {
+                conectar();
+                string sql = "insert into usuario values (" + usuario + ",'" + contraseña + "','" + tipo + "');";
+                command = new SQLiteCommand(sql, connection);
+
+                command.ExecuteNonQuery();
+                command.Connection.Close();
+
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Error: " + e);
+            }
+            finally
+            {
+                desconectar();
+            }
+        }
+
+        public bool iniciarSesion(int usuario, string contraseña, string tipo)
+        {
+            bool existe = false;
+            try
+            {              
+                conectar();
+                string sql = "select * from usuario where usuario = " + usuario + ", contraseña = " + contraseña + ", tipo = " + tipo;
+                command = new SQLiteCommand(sql, connection);
+
+                SQLiteDataReader lector = command.ExecuteReader();
+
+                while (lector.NextResult())
+                {
+                    existe = true;
+                }
+
+                lector.Close();
+                command.Connection.Close();                
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Error: " + e);
+            }
+            finally
+            {
+                desconectar();                
+            }
+            return existe;
+        }
+        //
+        //
+        //
         //      elementos de guardado
         //
         //
         //
         /// <summary>
-        /// guarda un registro en la tabla asignatura_alumno
+        /// guarda un registro en la tabla asignatura_alumno y un examen para el alumno en esa materia
         /// </summary>
         /// <param name="alumno"></param>
         /// <param name="asignatura"></param>
@@ -205,19 +274,14 @@ namespace tp_lab_3
             try
             {
                 conectar();
-                string sql = "insert intro alumno_asignatura(dni_alumnos, id_asignatura) values (" + alumno.dni + "," + asignatura.id + ")";
+                string sql = "insert intro alumno_asignatura(dni_alumnos, id_asignatura) values (" + alumno.dni + "," + asignatura.id + ");" +
+                    "insert into Examenes(dni_alumno, id_asignatura) values (" + alumno.dni + "," + asignatura.id + ")";
                 command = new SQLiteCommand(sql, this.connection);
+                            
 
-                try
-                {
-                    command.ExecuteNonQuery();
-                    command.Connection.Close();
-                }
-                catch (Exception e)
-                {
-
-                    throw new Exception("Error guardando el registro: " + e);
-                }
+                command.ExecuteNonQuery();
+                command.Connection.Close();
+                
 
 
             }
@@ -287,6 +351,47 @@ namespace tp_lab_3
                 command.Connection.Clone(); //cerramos la conexion
 
                 guardarCorrelativas(id, correlativas);
+                guardarProfesores(profesor);
+
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Error: " + e);
+            }
+            finally
+            {
+                desconectar();
+            }
+            //                                "regular int," +
+            //                                "aprobada int," +
+            //                                "para_cursar int);";
+
+
+            //"id_asignatura int primary key," +
+            //"nombre varchar,"
+
+
+        }
+
+        /// <summary>
+        /// guarda un registro en la tabla asignatura
+        /// </summary>
+        /// <param name="id">id identificador de la asignatura</param>
+        /// <param name="nombre">nombre de la asignatura</param>
+        /// <param name="correlativas">correlativas que pueda tener la asignatura</param>
+        /// <param name="profesor">profesores de la asignatura</param>
+        public void guardarAsignatura(int id, string nombre, List<Profesor> profesor)
+        {
+            try
+            {
+                conectar();
+                string sql = "insert into asignatura(id_asignatura, nombre) values (" + id + "," + nombre + ");";
+                command = new SQLiteCommand(sql, connection);//le pasamos la consulta que vamos a realizar
+
+                command.ExecuteNonQuery(); //ejecutamos la consulta
+                command.Connection.Clone(); //cerramos la conexion
+                                
                 guardarProfesores(profesor);
 
             }
@@ -382,6 +487,10 @@ namespace tp_lab_3
             }
         }
         
+        /// <summary>
+        /// guarda un registro en la tabla alumno
+        /// </summary>
+        /// <param name="alumno"></param>
         public void guardarAlumno(Alumno alumno)
         {
             try
@@ -401,6 +510,35 @@ namespace tp_lab_3
                 throw new Exception("Error: " + e);
             }
         }
+       
+        /// <summary>
+        /// guarda notas del examen 
+        /// </summary>
+        /// <param name="examen">examen que vamos a guardar</param>
+        public void guardarExamen(Examen examen)
+        {
+            try
+            {
+                conectar();
+                string sql = "insert into examen(primerParcial, segundoParcial, tercerParcial, primerRecuperatorio, segundoRecuperatorio) values" +
+                    "(" + examen.primerParcial + "," + examen.segundoParcial +"," + examen.tercerParcial + ","
+                    + examen.primerRecuperatorio + "," + examen.segundoRecuperatorio + ")";
+                command = new SQLiteCommand(sql, connection);
+
+                command.ExecuteNonQuery();
+                command.Connection.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                desconectar();
+            }
+
+        }
         //
         //
         //
@@ -413,7 +551,7 @@ namespace tp_lab_3
         /// </summary>
         /// <param name="requisitos">requisito que debe cumplor la asignatura ej 'id_asignatura = 12</param>
         /// <returns></returns>
-        public List<Asignatura> buscarAsignatura(string requisitos)
+        private List<Asignatura> buscarAsignatura(string requisitos)
         {
             try
             {
@@ -606,5 +744,7 @@ namespace tp_lab_3
             }
 
         }
+
+
     }
 }
