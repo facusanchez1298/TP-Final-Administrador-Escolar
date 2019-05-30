@@ -27,11 +27,20 @@
             {
                 if (primerParcial == -1) primerParcial = nota;
                 else if (segundoParcial == -1) segundoParcial = nota;
-                else if (tercerParcial == -1) tercerParcial = nota;
-                else if (primerRecuperatorio == -1) primerRecuperatorio = nota;
+                else if (tercerParcial == -1) tercerParcial = nota;               
+            }
+        }
+
+
+        public void agregarNotaRecuperatorio(int nota)
+        {
+            if (nota > 0)
+            {
+                if (primerRecuperatorio == -1) primerRecuperatorio = nota;
                 else segundoRecuperatorio = nota;
             }
         }
+       
 
 
 

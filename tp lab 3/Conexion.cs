@@ -26,7 +26,7 @@ namespace tp_lab_3
         string crearTablaAlu_Asig = "create table if not exists alumno_asignatura(" +
                                             "dni_alumno int not null," +
                                             "id_asignatura int not null," +
-                                            "aprobada boolean," +
+                                            "aprobada boolean not null," +
                                             "primary key(dni_alumno, id_asignatura)," +
                                             "FOREIGN KEY(dni_alumno) REFERENCES Alumno(dni_alumno)," +
                                             "FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id_asignatura));";
@@ -46,13 +46,13 @@ namespace tp_lab_3
                                             "FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id_asignatura));";
 
         string crearTablaExamenes = "create table if not exists Examen(" +
-                                            "id_asignatura int," +
-                                            "dni_Alumno int," +
-                                            "primerParcial int," +
-                                            "segundoParcial int," +
-                                            "tercerParcial int," +
-                                            "primerRecuperatorio int," +
-                                            "segundoRecuperatorio int," +
+                                            "id_asignatura int not null," +
+                                            "dni_Alumno int not null," +
+                                            "primerParcial int default -1," +
+                                            "segundoParcial int default -1," +
+                                            "tercerParcial int default -1," +
+                                            "primerRecuperatorio int default -1," +
+                                            "segundoRecuperatorio int default -1," +
                                             "primary key(id_asignatura, dni_Alumno));";
 
         string crearTablaCorrelatividad = "create table if not exists Correlatividad(" +
@@ -61,8 +61,8 @@ namespace tp_lab_3
                                             "para_cursar int);";
 
         string crearTablaProfesor = "create table if not exists Profesor(" +
-                                            "dni int primary key," +
-                                            "nombre varchar," +
+                                            "dni int primary key not null," +
+                                            "nombre varchar not null," +
                                             "apellido varchar," +
                                             "direccion varchar," +
                                             "telefono int," +
@@ -582,8 +582,8 @@ namespace tp_lab_3
                         examen.agregarNotaExamen(lector.GetInt32(2));
                         examen.agregarNotaExamen(lector.GetInt32(3));
                         examen.agregarNotaExamen(lector.GetInt32(4));
-                        examen.agregarNotaExamen(lector.GetInt32(5));
-                        examen.agregarNotaExamen(lector.GetInt32(6));
+                        examen.agregarNotaRecuperatorio(lector.GetInt32(5));
+                        examen.agregarNotaRecuperatorio(lector.GetInt32(6));
 
                         examenes.Add(examen);
                     }
