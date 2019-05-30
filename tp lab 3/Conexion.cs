@@ -233,7 +233,7 @@ namespace tp_lab_3
             try
             {              
                 conectar();
-                string sql = "select * from usuario where usuario = " + usuario + ", contraseña = " + contraseña + ", tipo = " + tipo;
+                string sql = "select * from usuario where usuario = " + usuario + " and contraseña = " + contraseña + " and tipo = " + tipo;
                 command = new SQLiteCommand(sql, connection);
 
                 SQLiteDataReader lector = command.ExecuteReader();
@@ -256,6 +256,29 @@ namespace tp_lab_3
                 desconectar();                
             }
             return existe;
+        }
+
+        public void borrarUsuario(int usuario, string contraseña, string tipo)
+        {
+            try
+            {
+                conectar();
+                string sql = "delete from usuario where usuario = " + usuario + " and contraseña = " + contraseña + " and tipo = " + tipo;
+
+                command = new SQLiteCommand(sql, connection);
+
+                command.ExecuteNonQuery();
+                command.Connection.Close();
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Error: " + e);
+            }
+            finally
+            {
+                desconectar();
+            }
         }
         //
         //
