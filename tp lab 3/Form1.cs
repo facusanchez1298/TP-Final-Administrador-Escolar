@@ -12,7 +12,12 @@ namespace tp_lab_3
 {
     public partial class Form1 : Form
     {
+        /// <summary>
+        /// objeto conexion que vamos a usar
+        /// </summary>
         Conexion conexion = new Conexion();
+
+
         public Form1()
         {
             InitializeComponent();
