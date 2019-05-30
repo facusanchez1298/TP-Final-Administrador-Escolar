@@ -24,32 +24,36 @@ namespace tp_lab_3
         /// curso
 
         string crearTablaAlu_Asig = "create table if not exists alumno_asignatura(" +
-                                            "dni_alumno int," +
-                                            "id_asignatura int," +
+                                            "dni_alumno int not null," +
+                                            "id_asignatura int not null," +
                                             "aprobada boolean," +
-                                            "FOREIGN KEY(id_asignatura) REFERENCES Alumno(dni_alumno)," +
-                                            "FOREIGN KEY(dni_alumno) REFERENCES Asignatura(asigAprobadas));";
+                                            "primary key(dni_alumno, id_asignatura)," +
+                                            "FOREIGN KEY(dni_alumno) REFERENCES Alumno(dni_alumno)," +
+                                            "FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id_asignatura));";
 
         string creatTablaProf_Asig = "create table if not exists Profesor_Asignatura(" +
-                                            "dni_profesor int," +
-                                            "id_asignatura int," +
+                                            "dni_profesor int not null," +
+                                            "id_asignatura int not null," +
+                                            "primary key(dni_profesor, id_asignatura)," +
                                             "FOREIGN KEY(dni_profesor) REFERENCES Profesor(dni)," +
-                                            "FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id));";
+                                            "FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id_asignatura));";
 
         string crearTablaCurso_Asig = "create table if not exists Curso_Asignatura(" +
-                                            "año_division varchar," +
-                                            "id_asignatura int," +
+                                            "año_division varchar not null," +
+                                            "id_asignatura int not null," +
+                                            "primary key(año_division, id_asignatura)," +
                                             "FOREIGN KEY(año_division) REFERENCES Curso(año_division)," +
-                                            "FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id));";
+                                            "FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id_asignatura));";
 
         string crearTablaExamenes = "create table if not exists Examen(" +
-                                            "id_asignatura int" +
+                                            "id_asignatura int," +
                                             "dni_Alumno int," +
                                             "primerParcial int," +
                                             "segundoParcial int," +
                                             "tercerParcial int," +
                                             "primerRecuperatorio int," +
-                                            "segundoRecuperatorio int);";
+                                            "segundoRecuperatorio int," +
+                                            "primary key(id_asignatura, dni_Alumno));";
 
         string crearTablaCorrelatividad = "create table if not exists Correlatividad(" +
                                             "regular int," +
@@ -66,21 +70,21 @@ namespace tp_lab_3
 
         string crearTablaAsignatura = "create table if not exists asignatura(" +
                                             "id_asignatura int primary key," +
-                                            "nombre varchar," +
+                                            "nombre varchar not null," +
                                             "correlativas int);";
 
 
         string crearTablaAula = "create table if not exists aula(" +
                                             "numero int PRIMARY KEY," +
-                                            "capacidad int," +
-                                            "internet boolean," +
-                                            "proyector boolean);";
+                                            "capacidad int not null," +
+                                            "internet boolean not null," +
+                                            "proyector boolean not null);";
 
         string crearTablaAlumno = "create table if not exists alumno(" +
                                             "dni int primary key," +
                                             "matricula int," +
-                                            "nombre varchar," +
-                                            "apellido varchar," +
+                                            "nombre varchar not null," +
+                                            "apellido varchar not null," +
                                             "direccion varchar," +
                                             "telefono int);";
 
@@ -88,7 +92,6 @@ namespace tp_lab_3
                                             "año_division varchar primary key," +
                                             "alumnos int," +
                                             "aulas int);";
-
         //
         //
         //
@@ -163,8 +166,9 @@ namespace tp_lab_3
                 conectar();
 
                 //preparamos un objeto que va a ejecutar todo el comando
-                command = new SQLiteCommand(crearTablaAlu_Asig + crearTablaCurso_Asig + creatTablaProf_Asig + crearTablaProfesor + crearTablaAula + crearTablaAlumno
-                    + crearTablaCurso + crearTablaExamenes + crearTablaCorrelatividad + crearTablaAsignatura, connection);
+                command = new SQLiteCommand(crearTablaAlu_Asig +crearTablaCurso_Asig + creatTablaProf_Asig + crearTablaProfesor + crearTablaAula + crearTablaAlumno
+                   + crearTablaCurso + crearTablaExamenes + crearTablaCorrelatividad + crearTablaAsignatura, connection);
+
 
                 //ejecutamos el comando
                 command.ExecuteNonQuery();
@@ -345,7 +349,7 @@ namespace tp_lab_3
         /// </summary>
         /// <param name="id">id de la asignatura</param>
         /// <param name="correlativas">correlativas de la asignatura</param>
-        private void guardarCorrelativas(int id, Correlativas correlativas)
+        public void guardarCorrelativas(int id, Correlativas correlativas)
         {
             try
             {
@@ -377,7 +381,26 @@ namespace tp_lab_3
                 desconectar();
             }
         }
+        
+        public void guardarAlumno(Alumno alumno)
+        {
+            try
+            {
+                conectar();
+                string sql = "insert int alumnos(dni, matricula, nombre, apellido, direccion, telefono) values " +
+                "(" + alumno.dni + "," + alumno.matricula + ",'" + alumno.nombre + "','" + alumno.apellido + "','" + alumno.direccion + "'," + alumno.telefono + ")";
 
+                
+
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error: " + e);
+            }
+        }
         //
         //
         //
