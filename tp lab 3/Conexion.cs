@@ -233,7 +233,7 @@ namespace tp_lab_3
             try
             {              
                 conectar();
-                string sql = "select * from usuario where usuario = " + usuario + " and contraseña = " + contraseña + " and tipo = " + tipo;
+                string sql = "select 1 from usuario where usuario = " + usuario + " and contraseña = " + contraseña + " and tipo = " + tipo;
                 command = new SQLiteCommand(sql, connection);
 
                 SQLiteDataReader lector = command.ExecuteReader();
@@ -355,6 +355,34 @@ namespace tp_lab_3
             }
         }
 
+        public void guardarProf_Asig(int id_asignatura, List<Profesor> profesores)
+        {
+            try
+            {
+                conectar();
+
+                for (int i = 0; i < profesores.Count; i++)
+                {
+                    string sql = "insert into Profesor_Asignatura(id_asignatura, dni_profesor) values (" + id_asignatura + "," + profesores.ElementAt(i).dni + ") ";
+                    command = new SQLiteCommand(sql, connection);
+
+                    command.ExecuteNonQuery();
+                }
+                
+                command.Connection.Close();
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Error: " + e);
+            }
+            finally
+            {
+                desconectar();
+            }
+        }
+
+
         /// <summary>
         /// guarda un registro en la tabla asignatura
         /// </summary>
@@ -374,7 +402,7 @@ namespace tp_lab_3
                 command.Connection.Clone(); //cerramos la conexion
 
                 guardarCorrelativas(id, correlativas);
-                guardarProfesores(profesor);
+                guardarProf_Asig(id, profesor);
 
             }
             catch (Exception e)
@@ -401,8 +429,7 @@ namespace tp_lab_3
         /// guarda un registro en la tabla asignatura
         /// </summary>
         /// <param name="id">id identificador de la asignatura</param>
-        /// <param name="nombre">nombre de la asignatura</param>
-        /// <param name="correlativas">correlativas que pueda tener la asignatura</param>
+        /// <param name="nombre">nombre de la asignatura</param>        
         /// <param name="profesor">profesores de la asignatura</param>
         public void guardarAsignatura(int id, string nombre, List<Profesor> profesor)
         {
@@ -451,8 +478,7 @@ namespace tp_lab_3
                 for (int i = 0; i < profesores.Count; i++)
                 {
                     Profesor profesor = profesores.ElementAt(i);
-
-
+                    
                     string sql = "insert into Profesor(dni, nombre, apellido, direccion, telefono, delCentro) values" +
                         " (" + profesor.dni + ",'" + profesor.nombre + "','" + profesor.apellido + "','" + profesor.direccion + "'," + profesor.telefono + ",'" + profesor.delCentro + "');";
 
@@ -482,17 +508,28 @@ namespace tp_lab_3
             try
             {
                 conectar();
-
+                string sql = "";
                 int count = correlativas.aprobadas.Count > correlativas.regulares.Count ? correlativas.aprobadas.Count : correlativas.regulares.Count;
 
                 for (int i = 0; i < count; i++)
                 {
-                    int id_regular = correlativas.regulares.ElementAt(i).id;
-                    int id_aprobada = correlativas.aprobadas.ElementAt(i).id;
+                    int id_regular = correlativas.regulares.ElementAt(i) == null? -1 : correlativas.regulares.ElementAt(i).id ;
+                    int id_aprobada = correlativas.aprobadas.ElementAt(i) == null ? -1 : correlativas.aprobadas.ElementAt(i).id;
 
-                    string sql = "insert into corrilatividad(regular, aprobada, para_cursar) values (" + id_regular + ", " + id_aprobada + "," + id + ");";
-
-
+                    if ((id_aprobada != -1) && (id_regular != -1))
+                    {
+                        sql = "insert into corrilatividad(regular, aprobada, para_cursar) values " +
+                                                    "(" + id_regular + ", " + id_aprobada + "," + id + ");";
+                    }
+                    else if (id_aprobada == -1)
+                    {
+                        sql = "insert into corrilatividad(regular, para_cursar) values (" + id_regular + ", " + id + ");";
+                    }
+                    else
+                    {
+                        sql = "insert into corrilatividad( aprobada, para_cursar) values (" + id_aprobada + "," + id + ");";
+                    }
+                                       
                     //ejecutamos el guardado
                     command = new SQLiteCommand(sql, connection);
                     command.ExecuteNonQuery();
@@ -531,6 +568,10 @@ namespace tp_lab_3
             catch (Exception e)
             {
                 throw new Exception("Error: " + e);
+            }
+            finally
+            {
+                desconectar();
             }
         }
        
