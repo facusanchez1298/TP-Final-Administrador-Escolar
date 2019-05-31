@@ -355,6 +355,11 @@ namespace tp_lab_3
             }
         }
 
+        /// <summary>
+        /// guarda un registro en la tabla profesor_asignatura
+        /// </summary>
+        /// <param name="id_asignatura">id de la asignatura que vamos a guardar</param>
+        /// <param name="profesores">lista de profesores que van a dar esa clase</param>
         public void guardarProf_Asig(int id_asignatura, List<Profesor> profesores)
         {
             try
@@ -381,8 +386,7 @@ namespace tp_lab_3
                 desconectar();
             }
         }
-
-
+        
         /// <summary>
         /// guarda un registro en la tabla asignatura
         /// </summary>
@@ -414,13 +418,7 @@ namespace tp_lab_3
             {
                 desconectar();
             }
-            //                                "regular int," +
-            //                                "aprobada int," +
-            //                                "para_cursar int);";
-
-
-            //"id_asignatura int primary key," +
-            //"nombre varchar,"
+            
 
 
         }
@@ -603,7 +601,7 @@ namespace tp_lab_3
             }
 
         }
-        //
+         //
         //
         //
         //       elementos de busqueda
@@ -808,7 +806,6 @@ namespace tp_lab_3
             }
 
         }
-
 
     }
 }

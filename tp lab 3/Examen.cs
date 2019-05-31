@@ -31,7 +31,6 @@
             }
         }
 
-
         public void agregarNotaRecuperatorio(int nota)
         {
             if (nota > 0)
