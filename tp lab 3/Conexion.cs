@@ -92,6 +92,7 @@ namespace tp_lab_3
                                             "año_division varchar primary key," +
                                             "alumnos int," +
                                             "aulas int);";
+
         /// <summary>
         /// los tipos que deberian ir son alumno, profesor o bedel
         /// </summary>
@@ -388,6 +389,148 @@ namespace tp_lab_3
         }
         
         /// <summary>
+        /// guarda un registro en la tabla curso asignatura
+        /// </summary>
+        /// <param name="curso_año"> año y division convinados en un string </param>
+        /// <param name="id_asignatura"> numero identificador de la asignatura</param>
+        public void guardarCurso_asig(string curso_año, int id_asignatura)
+        {
+            try
+            {
+                conectar();
+                string sql = "insert into Curso_Asignatura values ('" + curso_año + "', " + id_asignatura + ")";
+
+                command = new SQLiteCommand(sql, connection);
+
+                command.ExecuteNonQuery();
+
+                command.Connection.Close();
+
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Error: " + e);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+        }
+
+        /// <summary>
+        /// guarda notas del examen 
+        /// </summary>
+        /// <param name="examen">examen que vamos a guardar</param>
+        public void guardarExamen(Examen examen)
+        {
+            try
+            {
+                conectar();
+                string sql = "insert into examen(primerParcial, segundoParcial, tercerParcial, primerRecuperatorio, segundoRecuperatorio) values" +
+                    "(" + examen.primerParcial + "," + examen.segundoParcial + "," + examen.tercerParcial + ","
+                    + examen.primerRecuperatorio + "," + examen.segundoRecuperatorio + ")";
+                command = new SQLiteCommand(sql, connection);
+
+                command.ExecuteNonQuery();
+                command.Connection.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                desconectar();
+            }
+
+        }
+
+        /// <summary>
+        /// guarda en la tabla correlatividad las correlativas de una asignatura
+        /// </summary>
+        /// <param name="id">id de la asignatura</param>
+        /// <param name="correlativas">correlativas de la asignatura</param>
+        public void guardarCorrelativas(int id, Correlativas correlativas)
+        {
+            try
+            {
+                conectar();
+                string sql = "";
+                int count = correlativas.aprobadas.Count > correlativas.regulares.Count ? correlativas.aprobadas.Count : correlativas.regulares.Count;
+
+                for (int i = 0; i < count; i++)
+                {
+                    int id_regular = correlativas.regulares.ElementAt(i) == null ? -1 : correlativas.regulares.ElementAt(i).id;
+                    int id_aprobada = correlativas.aprobadas.ElementAt(i) == null ? -1 : correlativas.aprobadas.ElementAt(i).id;
+
+                    if ((id_aprobada != -1) && (id_regular != -1))
+                    {
+                        sql = "insert into corrilatividad(regular, aprobada, para_cursar) values " +
+                                                    "(" + id_regular + ", " + id_aprobada + "," + id + ");";
+                    }
+                    else if (id_aprobada == -1)
+                    {
+                        sql = "insert into corrilatividad(regular, para_cursar) values (" + id_regular + ", " + id + ");";
+                    }
+                    else
+                    {
+                        sql = "insert into corrilatividad( aprobada, para_cursar) values (" + id_aprobada + "," + id + ");";
+                    }
+
+                    //ejecutamos el guardado
+                    command = new SQLiteCommand(sql, connection);
+                    command.ExecuteNonQuery();
+                }
+
+                command.Connection.Close();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error: " + e);
+            }
+            finally
+            {
+                desconectar();
+            }
+        }
+
+        /// <summary>
+        /// guarda un registro en la tabla profesores
+        /// </summary>
+        /// <param name="profesores">Lista de profesores que vamos a guardar</param>
+        private void guardarProfesores(List<Profesor> profesores)
+        {
+            try
+            {
+                conectar();
+
+                for (int i = 0; i < profesores.Count; i++)
+                {
+                    Profesor profesor = profesores.ElementAt(i);
+
+                    string sql = "insert into Profesor(dni, nombre, apellido, direccion, telefono, delCentro) values" +
+                        " (" + profesor.dni + ",'" + profesor.nombre + "','" + profesor.apellido + "','" + profesor.direccion + "'," + profesor.telefono + ",'" + profesor.delCentro + "');";
+
+                    command = new SQLiteCommand(sql, connection);
+                    command.ExecuteNonQuery();
+                }
+
+                command.Connection.Close();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error: " + e);
+            }
+            finally
+            {
+                desconectar();
+            }
+        }
+
+        /// <summary>
         /// guarda un registro en la tabla asignatura
         /// </summary>
         /// <param name="id">id identificador de la asignatura</param>
@@ -462,89 +605,39 @@ namespace tp_lab_3
 
 
         }
-
-        /// <summary>
-        /// guarda un registro en la tabla profesores
-        /// </summary>
-        /// <param name="profesores">Lista de profesores que vamos a guardar</param>
-        private void guardarProfesores(List<Profesor> profesores)
-        {
-            try
-            {
-                conectar();
-
-                for (int i = 0; i < profesores.Count; i++)
-                {
-                    Profesor profesor = profesores.ElementAt(i);
-                    
-                    string sql = "insert into Profesor(dni, nombre, apellido, direccion, telefono, delCentro) values" +
-                        " (" + profesor.dni + ",'" + profesor.nombre + "','" + profesor.apellido + "','" + profesor.direccion + "'," + profesor.telefono + ",'" + profesor.delCentro + "');";
-
-                    command = new SQLiteCommand(sql, connection);
-                    command.ExecuteNonQuery();
-                }
-
-                command.Connection.Close();
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Error: " + e);
-            }
-            finally
-            {
-                desconectar();
-            }
-        }
-
-        /// <summary>
-        /// guarda en la tabla correlatividad las correlativas de una asignatura
-        /// </summary>
-        /// <param name="id">id de la asignatura</param>
-        /// <param name="correlativas">correlativas de la asignatura</param>
-        public void guardarCorrelativas(int id, Correlativas correlativas)
-        {
-            try
-            {
-                conectar();
-                string sql = "";
-                int count = correlativas.aprobadas.Count > correlativas.regulares.Count ? correlativas.aprobadas.Count : correlativas.regulares.Count;
-
-                for (int i = 0; i < count; i++)
-                {
-                    int id_regular = correlativas.regulares.ElementAt(i) == null? -1 : correlativas.regulares.ElementAt(i).id ;
-                    int id_aprobada = correlativas.aprobadas.ElementAt(i) == null ? -1 : correlativas.aprobadas.ElementAt(i).id;
-
-                    if ((id_aprobada != -1) && (id_regular != -1))
-                    {
-                        sql = "insert into corrilatividad(regular, aprobada, para_cursar) values " +
-                                                    "(" + id_regular + ", " + id_aprobada + "," + id + ");";
-                    }
-                    else if (id_aprobada == -1)
-                    {
-                        sql = "insert into corrilatividad(regular, para_cursar) values (" + id_regular + ", " + id + ");";
-                    }
-                    else
-                    {
-                        sql = "insert into corrilatividad( aprobada, para_cursar) values (" + id_aprobada + "," + id + ");";
-                    }
-                                       
-                    //ejecutamos el guardado
-                    command = new SQLiteCommand(sql, connection);
-                    command.ExecuteNonQuery();
-                }
-
-                command.Connection.Close();
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Error: " + e);
-            }
-            finally
-            {
-                desconectar();
-            }
-        }
         
+        /// <summary>
+        /// guarda un registro en la tabla aula
+        /// </summary>
+        /// <param name="numero">numero del aula</param>
+        /// <param name="capacidad">capacidad del aula</param>
+        /// <param name="tieneInternet">true si tiene internet, false en caso contrario</param>
+        /// <param name="tieneProyector">true si tiene proyector, false en caso contrario</param>
+        public void guardarAula(int numero, int capacidad, bool tieneInternet, bool tieneProyector)
+        {
+            try
+            {
+                conectar();
+                string sql = "insert into aula values (" + numero + "," + capacidad + ",'" + tieneInternet + "','" + tieneProyector + "')";
+                command = new SQLiteCommand(sql, connection);
+
+                command.ExecuteNonQuery();
+
+                command.Connection.Close();
+
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Error: " + e) ;
+            }
+            finally
+            {
+                desconectar();
+            }
+           
+        }
+
         /// <summary>
         /// guarda un registro en la tabla alumno
         /// </summary>
@@ -572,36 +665,7 @@ namespace tp_lab_3
                 desconectar();
             }
         }
-       
-        /// <summary>
-        /// guarda notas del examen 
-        /// </summary>
-        /// <param name="examen">examen que vamos a guardar</param>
-        public void guardarExamen(Examen examen)
-        {
-            try
-            {
-                conectar();
-                string sql = "insert into examen(primerParcial, segundoParcial, tercerParcial, primerRecuperatorio, segundoRecuperatorio) values" +
-                    "(" + examen.primerParcial + "," + examen.segundoParcial +"," + examen.tercerParcial + ","
-                    + examen.primerRecuperatorio + "," + examen.segundoRecuperatorio + ")";
-                command = new SQLiteCommand(sql, connection);
-
-                command.ExecuteNonQuery();
-                command.Connection.Close();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            finally
-            {
-                desconectar();
-            }
-
-        }
-         //
+        //
         //
         //
         //       elementos de busqueda
@@ -806,6 +870,7 @@ namespace tp_lab_3
             }
 
         }
+
 
     }
 }
