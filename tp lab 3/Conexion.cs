@@ -26,7 +26,8 @@ namespace tp_lab_3
         string crearTablaAlu_Asig =     "create table if not exists alumno_asignatura(" +
                                             "dni_alumno int not null," +
                                             "id_asignatura int not null," +
-                                            "aprobada boolean not null," +
+                                            "aprobada boolean defaul false," +
+                                            "cursando boolean defaul true," +
                                             "primary key(dni_alumno, id_asignatura)," +
                                             "FOREIGN KEY(dni_alumno) REFERENCES Alumno(dni_alumno)," +
                                             "FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id_asignatura));";
@@ -70,8 +71,7 @@ namespace tp_lab_3
 
         string crearTablaAsignatura =   "create table if not exists asignatura(" +
                                             "id_asignatura int primary key," +
-                                            "nombre varchar not null," +
-                                            "correlativas int);";
+                                            "nombre varchar not null);";
 
 
         string crearTablaAula =         "create table if not exists aula(" +
@@ -86,11 +86,12 @@ namespace tp_lab_3
                                             "nombre varchar not null," +
                                             "apellido varchar not null," +
                                             "direccion varchar," +
-                                            "telefono int);";
+                                            "telefono int," +
+                                            "año_division varchar," +
+                                            "foreign key(año_division) references Curso(año_division));";
 
         string crearTablaCurso =         "create table if not exists Curso(" +
                                             "año_division varchar primary key," +
-                                            "alumnos int," +
                                             "aulas int);";
 
         /// <summary>
@@ -197,6 +198,27 @@ namespace tp_lab_3
                 desconectar();
             }
 
+        }
+        
+        /// <summary>
+        /// borra la base de datos anterior y la reinstala
+        /// </summary>
+        /// <param name="nombre">nombre de la base de datos</param>
+        public void reinstalarBaseDeDatos(string nombre = "datos.grupoDeTrabajo")
+        {
+            try
+            {
+                if (!File.Exists(nombre))
+                {
+                    File.Delete("datos.grupoDeTrabajo");
+                }
+                crearBaseDeDatos(nombre);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Error: " + e);
+            }
         }
         //
         //
@@ -647,8 +669,9 @@ namespace tp_lab_3
             try
             {
                 conectar();
-                string sql = "insert int alumnos(dni, matricula, nombre, apellido, direccion, telefono) values " +
-                "(" + alumno.dni + "," + alumno.matricula + ",'" + alumno.nombre + "','" + alumno.apellido + "','" + alumno.direccion + "'," + alumno.telefono + ")";
+                string sql = "insert int alumnos(dni, matricula, nombre, apellido, direccion, telefono, año_division) values " +
+                        "(" + alumno.dni + "," + alumno.matricula + ",'" + alumno.nombre + "','" + alumno.apellido + "','" + alumno.direccion +
+                        "'," + alumno.telefono + ",'" + alumno.curso.año  + " " + alumno.curso.division + "')";
 
                 
 
@@ -668,6 +691,52 @@ namespace tp_lab_3
         //
         //
         //
+        //      cargar elementos
+        //
+        //
+        //
+        /// <summary>
+        /// carga todos los cursos guardados
+        /// </summary>
+        /// <param name="cursos"></param>
+        public void cargarCursos(List<Curso> cursos)
+        {
+            try
+            {
+                
+                conectar();
+                string sql = "select * from curso";
+                command = new SQLiteCommand(sql, connection);
+
+                SQLiteDataReader lector = command.ExecuteReader();
+
+                while (lector.NextResult())
+                {
+                    int año;
+                    char division;
+                    string año_Div = lector.GetString(0);
+
+
+                    dividirCursoDivision(año_Div, out año, out division);
+                    Aula aula = buscarAula(lector.GetInt32(1));
+                    Curso curso = new Curso(año, division, aula);
+
+                    curso.agregarAlumnos(buscarAlumnos("where año_division = " + año_Div));
+                    curso.agregarAsignaturas(buscarAsignatura_curso(año_Div));
+                                                                          
+                }
+
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Error: " + e);
+            }
+        }
+
+        //
+        //
+        //
         //       elementos de busqueda
         //
         //
@@ -675,16 +744,17 @@ namespace tp_lab_3
         /// <summary>
         /// devuelve una lista de asignaturas que cumplan con el requisito que le pasas
         /// </summary>
-        /// <param name="requisitos">requisito que debe cumplor la asignatura ej 'id_asignatura = 12</param>
+        /// <param name="requisitos">requisito que debe cumplor la asignatura ej 'where id_asignatura = 12
+        /// en caso de no pasar requisitos trae todas las asignaturas cargadas</param>
         /// <returns></returns>
-        private List<Asignatura> buscarAsignatura(string requisitos)
+        private List<Asignatura> buscarAsignatura(string requisitos = "")
         {
             try
             {
 
                 List<Asignatura> asignaturas = new List<Asignatura>();
                 conectar();
-                string sql = "select * from asignatura where " + requisitos;
+                string sql = "select * from asignatura " + requisitos;
                 command = new SQLiteCommand(sql, connection);
 
                 try
@@ -722,6 +792,56 @@ namespace tp_lab_3
             }
         }
 
+        /// <summary>
+        /// busca todas las asignaturas que correspondan a este curso
+        /// </summary>
+        /// <param name="año_Division">el curso que queremos buscar</param>
+        /// <returns></returns>
+        private List<Asignatura> buscarAsignatura_curso(string año_Division)
+        {
+            try
+            {
+
+                List<Asignatura> asignaturas = new List<Asignatura>();
+                conectar();
+                string sql = "select asignatura.id_asignatura, nombre from curso_asignatura" +
+                    " inner join asignatura on curso_asignatura.año_division = " + año_Division;
+                command = new SQLiteCommand(sql, connection);
+
+                try
+                {
+                    SQLiteDataReader lector = command.ExecuteReader();
+
+                    while (lector.NextResult())
+                    {
+                        int id = lector.GetInt32(0);
+                        string nombre = lector.GetString(1);
+                        List<Examen> examenes = buscarExamenes(id);
+                        Correlativas correlativas = buscarCorrelativas(id);
+                        List<Profesor> profesores = buscarProfesores(id);
+
+                        Asignatura asignatura = new Asignatura(id, nombre, correlativas, profesores);
+                        asignatura.agregarExamenes(examenes);
+
+                        asignaturas.Add(asignatura);
+                    }
+
+                    lector.Close();
+                    command.Connection.Close();
+
+                    return asignaturas;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error: " + e);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error: " + e);
+            }
+        }
+        
         /// <summary>
         /// busca los profesores que dan clases en esa asignatura
         /// </summary>
@@ -871,6 +991,106 @@ namespace tp_lab_3
 
         }
 
+        /// <summary>
+        /// busca un aula en la base de datos. 
+        /// </summary>
+        /// <param name="numero">numero identificador del aula</param>
+        /// <returns> retorna el aula que tenga el numero identificador que pasamos por parametro.
+        /// en caso de no encontrarla devuelve null</returns>
+        private Aula buscarAula(int numero)
+        {
+            try
+            {
+                conectar();
+                string sql = "select * from aula where numero = " + numero;
+                command = new SQLiteCommand(sql, connection);
+                Aula aula = null;
 
+                SQLiteDataReader lector = command.ExecuteReader();
+
+                while (lector.NextResult())
+                {
+                    int capacidad = lector.GetInt32(1);
+                    bool internet = lector.GetBoolean(2);
+                    bool proyector = lector.GetBoolean(3);
+
+                    aula = new Aula(capacidad, numero, proyector, internet);
+                }
+
+                command.Connection.Close();
+                lector.Close();
+
+                return aula;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error: " + e);
+            }
+            finally
+            {
+                desconectar();
+            }
+        }
+
+        /// <summary>
+        /// busca alumnos que cumplan con determinada condicion
+        /// </summary>
+        /// <param name="sentencia"></param>
+        /// <returns></returns>
+        private List<Alumno> buscarAlumnos(string sentencia = "")
+        {
+            try
+            {
+                List<Alumno> alumnos = new List<Alumno>();
+                conectar();
+                string sql = "select * from alumno" + sentencia;
+                command = new SQLiteCommand(sql, connection);
+
+                SQLiteDataReader letor = command.ExecuteReader();
+
+                while (letor.NextResult())
+                {
+                    int dni = letor.GetInt32(0);
+                    int matricula = letor.GetInt32(1);
+                    string nombre = letor.GetString(2);
+                    string apellido = letor.GetString(3);
+                    string direccion = letor.GetString(4);
+                    int telefono = letor.GetInt32(5);
+                    string curso = letor.GetString(6);
+
+                    Alumno alumno = new Alumno(nombre, apellido, dni, direccion, telefono, curso, matricula);
+
+                    alumnos.Add(alumno);
+                }
+
+                return alumnos;
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Error: " + e);
+            }
+        }        
+        //
+        //
+        //
+        //      cosas aparte
+        //
+        //
+        //
+        public void dividirCursoDivision(string añoDivision ,out int año, out char division)
+        {
+           
+            año = 0;
+            division = '1';
+
+            for (int i = 0; i < añoDivision.Length; i++)
+            {
+                if (!int.TryParse(añoDivision.ElementAt(i).ToString(), out año))
+                {
+                    division = añoDivision.ElementAt(i);
+                }
+            }
+        }
     }
 }

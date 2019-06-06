@@ -23,5 +23,11 @@ namespace tp_lab_3
             InitializeComponent();
             conexion.crearBaseDeDatos();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            conexion.reinstalarBaseDeDatos();
+            MessageBox.Show("reinstalada");
+        }
     }
 }

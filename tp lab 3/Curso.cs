@@ -31,6 +31,15 @@ namespace tp_lab_3
         }
 
         /// <summary>
+        /// agrega una lista de alumnos al curso
+        /// </summary>
+        /// <param name="alumnos"></param>
+        public void agregarAlumnos(List<Alumno> alumnos)
+        {
+            if (hayEspacio(alumnos.Count)) this.alumnos.AddRange(alumnos);
+        }
+
+        /// <summary>
         /// agrega una asignatura nueva al curso
         /// </summary>
         /// <param name="asignatura"></param>
@@ -38,7 +47,17 @@ namespace tp_lab_3
         {
             asignaturas.Add(asignatura);
         }
-        
+
+        /// <summary>
+        /// agrega un grupo de asignaturas al curso
+        /// </summary>
+        /// <param name="asignaturas">grupo de asignaturas que vamos a guardar</param>
+        public void agregarAsignaturas(List<Asignatura> asignaturas)
+        {
+            this.asignaturas.AddRange(asignaturas);
+        }
+
+
         /// <summary>
         /// cambia el aula del curso si el aula nueva tiene suficiente capacidad
         /// </summary>
@@ -60,7 +79,7 @@ namespace tp_lab_3
         /// <returns></returns>
         private bool hayEspacio(int cantidad = 1)
         {
-            return this.aula.capacidad <= alumnos.Count + cantidad;
+            return this.aula.capacidad >= alumnos.Count + cantidad;
         }
 
     }
