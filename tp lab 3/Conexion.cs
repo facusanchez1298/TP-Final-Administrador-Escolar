@@ -677,7 +677,7 @@ namespace tp_lab_3
                 conectar();
                 string sql = "insert int alumnos(dni, matricula, nombre, apellido, direccion, telefono, año_division) values " +
                         "(" + alumno.dni + "," + alumno.matricula + ",'" + alumno.nombre + "','" + alumno.apellido + "','" + alumno.direccion +
-                        "'," + alumno.telefono + ",'" + alumno.curso.año  + " " + alumno.curso.division + "')";
+                        "'," + alumno.telefono + ",'" + alumno.curso + "')";
 
                 
 
