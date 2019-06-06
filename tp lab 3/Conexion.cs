@@ -227,6 +227,12 @@ namespace tp_lab_3
         //
         //
         //
+        /// <summary>
+        /// crea un usuario
+        /// </summary>
+        /// <param name="usuario">nombre de usuario</param>
+        /// <param name="contraseña">contraseña</param>
+        /// <param name="tipo">alumno, profesor o bedel</param>
         public void crearUsuario(int usuario, string contraseña, string tipo)
         {
             try
