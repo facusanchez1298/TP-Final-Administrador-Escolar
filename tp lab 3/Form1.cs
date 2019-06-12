@@ -26,8 +26,10 @@ namespace tp_lab_3
 
         private void button1_Click(object sender, EventArgs e)
         {
-            conexion.reinstalarBaseDeDatos();
-            MessageBox.Show("reinstalada");
+            //conexion.reinstalarBaseDeDatos();
+            //MessageBox.Show("reinstalada");
+
+            MessageBox.Show(conexion.iniciarSesion(1234, "1234", "Alumno").ToString());
         }
     }
 }

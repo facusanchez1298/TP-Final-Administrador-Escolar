@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace tp_lab_3
 {
-    class Aula
+    public class Aula
     {
         public int capacidad { get; set; }
         public int numero { get; set; }

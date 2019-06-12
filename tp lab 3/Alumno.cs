@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace tp_lab_3
 {
-    class Alumno : Persona
+    public class Alumno : Persona
     {
         public int matricula { get; set; }
         public string curso;

@@ -5,10 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace tp_lab_3
 {
-    class Conexion
+    public class Conexion
     {
         /// orden
         /// alu_asig
@@ -102,6 +103,7 @@ namespace tp_lab_3
                                             "contraseña varchar not null," +
                                             "tipo varchar not null);";
 
+        
 
         //
         //
@@ -238,7 +240,7 @@ namespace tp_lab_3
             try
             {
                 conectar();
-                string sql = "insert into usuario values (" + usuario + ",'" + contraseña + "','" + tipo + "');";
+                string sql = "insert into usuario(usuario, contraseña, tipo) values (" + usuario + ",'" + contraseña + "','" + tipo + "');";
                 command = new SQLiteCommand(sql, connection);
 
                 command.ExecuteNonQuery();
@@ -262,13 +264,16 @@ namespace tp_lab_3
             try
             {              
                 conectar();
-                string sql = "select 1 from usuario where usuario = " + usuario + " and contraseña = " + contraseña + " and tipo = " + tipo;
+                string sql = "select * from Usuario where usuario = " + usuario + " and contraseña = '" + contraseña + "' and tipo = '" + tipo + "'";
                 command = new SQLiteCommand(sql, connection);
 
                 SQLiteDataReader lector = command.ExecuteReader();
 
-                while (lector.NextResult())
+                
+
+                if(lector.Read())
                 {
+                   
                     existe = true;
                 }
 
@@ -326,7 +331,7 @@ namespace tp_lab_3
             try
             {
                 conectar();
-                string sql = "insert intro alumno_asignatura(dni_alumnos, id_asignatura) values (" + alumno.dni + "," + asignatura.id + ");" +
+                string sql = "insert into alumno_asignatura(dni_alumnos, id_asignatura) values (" + alumno.dni + "," + asignatura.id + ");" +
                     "insert into Examenes(dni_alumno, id_asignatura) values (" + alumno.dni + "," + asignatura.id + ")";
                 command = new SQLiteCommand(sql, this.connection);
                             

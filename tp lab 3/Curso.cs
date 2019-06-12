@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace tp_lab_3
 {
-    class Curso
+    public class Curso
     {
         public int año { get; set; }
         public char division { get; set; }
