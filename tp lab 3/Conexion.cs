@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
@@ -99,9 +100,10 @@ namespace tp_lab_3
         /// los tipos que deberian ir son alumno, profesor o bedel
         /// </summary>
         string crearTablaUsuario =       "create table if not exists usuario(" +
-                                            "usuario int not null," +
+                                            "usuario int," +
                                             "contraseña varchar not null," +
-                                            "tipo varchar not null);";
+                                            "tipo varchar not null," +
+                                            "primary key(usuario, tipo));";
 
         
 
@@ -121,6 +123,11 @@ namespace tp_lab_3
         /// el objeto que se encarga de ejecutar los comandos que le pasemos
         /// </summary>
         SQLiteCommand command;
+
+        /// <summary>
+        /// lo utilizamos para adapatar contenido a la tabla
+        /// </summary>
+        SQLiteDataAdapter dataAdapter;
         //
         //
         //
@@ -250,7 +257,7 @@ namespace tp_lab_3
             catch (Exception e)
             {
 
-                throw new Exception("Error: " + e);
+                mostrarMensaje("el usuario: " + usuario + " ya existe, intente con otro");
             }
             finally
             {
@@ -1048,7 +1055,7 @@ namespace tp_lab_3
         /// </summary>
         /// <param name="sentencia"></param>
         /// <returns></returns>
-        private List<Alumno> buscarAlumnos(string sentencia = "")
+        private List<Alumno> buscarAlumnos( string sentencia = "")
         {
             try
             {
@@ -1085,6 +1092,43 @@ namespace tp_lab_3
         //
         //
         //
+        //      cargarTabla
+        // 
+        //
+        //
+        public void tablaAlumnos(DataGridView dataGridView, string sentencia = "")
+        {
+            try
+            {
+                conectar();
+                string sql = "select * from alumno" + sentencia;
+                dataAdapter = new SQLiteDataAdapter(sql, connection);
+
+                DataSet ds = new DataSet();
+                ds.Reset();
+
+                DataTable dt = new DataTable();
+                dataAdapter.Fill(ds);
+
+                dt = ds.Tables[0];
+
+                dataGridView.DataSource = dt;
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Error: " + e);
+            }
+            finally
+            {
+                desconectar();
+            }
+        }
+
+
+        //
+        //
+        //
         //      cosas aparte
         //
         //
@@ -1103,5 +1147,15 @@ namespace tp_lab_3
                 }
             }
         }
+
+
+        public void mostrarMensaje(string mensaje)
+        {
+            const string caption = "Datos Erroneos";
+            var result = MessageBox.Show(mensaje, caption,
+                                         MessageBoxButtons.OK,
+                                         MessageBoxIcon.Error);
+        }
+
     }
 }
