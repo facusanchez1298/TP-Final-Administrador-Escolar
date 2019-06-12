@@ -64,8 +64,7 @@ namespace Presentacion
                         NuevaVentana.Show();
                         NuevaVentana.FormClosed += cerrarCecion;
                         this.Hide();
-                    }
-                    else label.Text = contraseña;
+                    }                    
                 }
 
                 else if (rBtnAlumno.Checked)
