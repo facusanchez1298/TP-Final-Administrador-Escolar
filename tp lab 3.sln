@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tp lab 3", "tp lab 3\tp lab 3.csproj", "{92D02F53-D074-4600-9287-3E8BEDA22064}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentacion", "..\LabEscuela\Presentacion\Presentacion.csproj", "{FE03B275-ADA0-4B30-B011-DFCA699FDEB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentacion1", "..\LabEscuela\Presentacion\Presentacion1.csproj", "{FE03B275-ADA0-4B30-B011-DFCA699FDEB1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiLibreria", "..\LabEscuela\MiLibreria\MiLibreria.csproj", "{E05B65E6-4760-4228-90CF-1AE0A3E3B1D2}"
 EndProject

@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>tp_lab_3</RootNamespace>
     <AssemblyName>tp lab 3</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>

@@ -22,6 +22,7 @@ namespace tp_lab_3
             this.asignaturas.Add(asignatura);
         }
 
+
         public Profesor(string nombre, string apellido, int dni, string direccion, int telefono, bool delCentro, List<Asignatura> asignaturas) : base(nombre, apellido, dni, direccion, telefono)
         {
             if (asignaturas == null) throw new Exception("asignatura nula o no existente");
