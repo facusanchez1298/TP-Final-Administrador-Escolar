@@ -10,11 +10,11 @@ namespace tp_lab_3
     {
         public string nombre { get; set; }
         public string apellido { get; set; }
-        public int dni { get; set; }
+        public decimal dni { get; set; }
         public string direccion { get; set; }
-        public int telefono { get; set; }
+        public string telefono { get; set; }
 
-        public Persona(string nombre, string apellido, int dni, string direccion, int telefono)
+        public Persona(string nombre, string apellido, decimal dni, string direccion, string telefono)
         {
             this.nombre = nombre;
             this.apellido = apellido;

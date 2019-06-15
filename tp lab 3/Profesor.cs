@@ -9,12 +9,12 @@ namespace tp_lab_3
         public List<Asignatura> asignaturas = new List<Asignatura>();
 
 
-        public Profesor(string nombre, string apellido, int dni, string direccion, int telefono, bool delCentro) : base(nombre, apellido, dni, direccion, telefono)
+        public Profesor(string nombre, string apellido, int dni, string direccion, string telefono, bool delCentro) : base(nombre, apellido, dni, direccion, telefono)
         {
             this.delCentro = delCentro;
         }
 
-        public Profesor(string nombre, string apellido, int dni, string direccion, int telefono, bool delCentro, Asignatura asignatura) : base(nombre, apellido, dni, direccion, telefono)
+        public Profesor(string nombre, string apellido, int dni, string direccion, string telefono, bool delCentro, Asignatura asignatura) : base(nombre, apellido, dni, direccion, telefono)
         {
             if (asignatura == null) throw new Exception("asignatura nula o no existente");
 
@@ -23,7 +23,7 @@ namespace tp_lab_3
         }
 
 
-        public Profesor(string nombre, string apellido, int dni, string direccion, int telefono, bool delCentro, List<Asignatura> asignaturas) : base(nombre, apellido, dni, direccion, telefono)
+        public Profesor(string nombre, string apellido, int dni, string direccion, string telefono, bool delCentro, List<Asignatura> asignaturas) : base(nombre, apellido, dni, direccion, telefono)
         {
             if (asignaturas == null) throw new Exception("asignatura nula o no existente");
 
