@@ -11,42 +11,46 @@ using tp_lab_3;
 
 namespace Presentacion
 {
-
-   
-
     public partial class VentAulas : FormEdicion
     {
 
-        public List<Aula> aulas = new List<Aula>();
-
+        Conexion conexion;
         public VentAulas()
         {
-            
+            conexion = new Conexion();
             InitializeComponent();
            
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
-        {
+        {            
             VenAgrAula NuevaVentana = new VenAgrAula(this);
-            NuevaVentana.Show();
+            NuevaVentana.ShowDialog();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
             VenEdiAula NuevaVentana = new VenEdiAula(this);
-            NuevaVentana.Show();
+            NuevaVentana.ShowDialog();
         }
 
         private void VentAulas_Load(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = aulas;
+            actualizarTabla();
+        }  
+        
+        public void actualizarTabla()
+        {
+            conexion.tablaAulas(dataGridView1);
         }
 
-        private void VentAulas_Resize(object sender, EventArgs e)
+        private void btnElliminar_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = aulas;
+            if (seleccionado != null)
+            {
+                conexion.removerAula((int)seleccionado.Cells["numero"].Value);
+                actualizarTabla();
+            }
         }
     }
 }
-

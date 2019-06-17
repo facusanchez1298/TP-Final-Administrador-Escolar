@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.label4 = new System.Windows.Forms.Label();
+            this.cBoxProfesor = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TitleBar.SuspendLayout();
@@ -53,12 +55,14 @@
             // btnGuardar
             // 
             this.btnGuardar.FlatAppearance.BorderSize = 0;
-            this.btnGuardar.Location = new System.Drawing.Point(244, 311);
+            this.btnGuardar.Location = new System.Drawing.Point(197, 272);
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnCancelar
             // 
             this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.Location = new System.Drawing.Point(445, 311);
+            this.btnCancelar.Location = new System.Drawing.Point(382, 272);
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // errorTxtBox1
             // 
@@ -72,21 +76,57 @@
             // 
             // TitleBar
             // 
-            this.TitleBar.Size = new System.Drawing.Size(662, 40);
+            this.TitleBar.Size = new System.Drawing.Size(588, 40);
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(0, 394);
-            this.panel1.Size = new System.Drawing.Size(662, 15);
+            this.panel1.Location = new System.Drawing.Point(0, 340);
+            this.panel1.Size = new System.Drawing.Size(588, 15);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label4.Location = new System.Drawing.Point(240, 139);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(74, 21);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Profesor:";
+            // 
+            // cBoxProfesor
+            // 
+            this.cBoxProfesor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(94)))), ((int)(((byte)(129)))));
+            this.cBoxProfesor.ForeColor = System.Drawing.Color.White;
+            this.cBoxProfesor.FormattingEnabled = true;
+            this.cBoxProfesor.Location = new System.Drawing.Point(329, 139);
+            this.cBoxProfesor.Name = "cBoxProfesor";
+            this.cBoxProfesor.Size = new System.Drawing.Size(210, 21);
+            this.cBoxProfesor.TabIndex = 12;
             // 
             // VenAgrMateria
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(662, 409);
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ClientSize = new System.Drawing.Size(588, 355);
+            this.Controls.Add(this.cBoxProfesor);
+            this.Controls.Add(this.label4);
+            this.ForeColor = System.Drawing.Color.White;
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "VenAgrMateria";
             this.Text = "VenAgrMateria";
+            this.Controls.SetChildIndex(this.label1, 0);
+            this.Controls.SetChildIndex(this.label2, 0);
+            this.Controls.SetChildIndex(this.pictureBox1, 0);
+            this.Controls.SetChildIndex(this.btnGuardar, 0);
+            this.Controls.SetChildIndex(this.btnCancelar, 0);
+            this.Controls.SetChildIndex(this.errorTxtBox1, 0);
+            this.Controls.SetChildIndex(this.errorTxtBox2, 0);
+            this.Controls.SetChildIndex(this.panel1, 0);
+            this.Controls.SetChildIndex(this.TitleBar, 0);
+            this.Controls.SetChildIndex(this.label4, 0);
+            this.Controls.SetChildIndex(this.cBoxProfesor, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.TitleBar.ResumeLayout(false);
@@ -99,5 +139,8 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Label label4;
+        public System.Windows.Forms.ComboBox cBoxProfesor;
     }
 }

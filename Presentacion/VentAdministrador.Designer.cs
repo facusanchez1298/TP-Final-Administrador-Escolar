@@ -33,6 +33,7 @@
             this.btnAlumnos = new System.Windows.Forms.Button();
             this.btnProf = new System.Windows.Forms.Button();
             this.btnAdm = new System.Windows.Forms.Button();
+            this.btnCursos = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.btnPanel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRestaurar)).BeginInit();
@@ -65,8 +66,8 @@
             this.btnMaterias.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));
             this.btnMaterias.Image = global::Presentacion.Properties.Resources.book;
             this.btnMaterias.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMaterias.Location = new System.Drawing.Point(10, 51);
-            this.btnMaterias.Size = new System.Drawing.Size(240, 40);
+            this.btnMaterias.Location = new System.Drawing.Point(3, 101);
+            this.btnMaterias.Size = new System.Drawing.Size(247, 40);
             this.btnMaterias.Click += new System.EventHandler(this.btnMaterias_Click);
             // 
             // btnPersonal
@@ -76,8 +77,9 @@
             this.btnPersonal.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));
             this.btnPersonal.Image = global::Presentacion.Properties.Resources.empleados;
             this.btnPersonal.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPersonal.Location = new System.Drawing.Point(0, 96);
-            this.btnPersonal.Size = new System.Drawing.Size(250, 40);
+            this.btnPersonal.Location = new System.Drawing.Point(-6, 147);
+            this.btnPersonal.Size = new System.Drawing.Size(256, 40);
+            this.btnPersonal.Click += new System.EventHandler(this.btnPersonal_Click);
             // 
             // btnAulas
             // 
@@ -86,12 +88,13 @@
             this.btnAulas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));
             this.btnAulas.Image = global::Presentacion.Properties.Resources.university;
             this.btnAulas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAulas.Location = new System.Drawing.Point(10, 5);
+            this.btnAulas.Location = new System.Drawing.Point(0, 5);
             this.btnAulas.Size = new System.Drawing.Size(250, 40);
             this.btnAulas.Click += new System.EventHandler(this.btnAulas_Click);
             // 
             // MenuVertical
             // 
+            this.MenuVertical.Controls.Add(this.btnCursos);
             this.MenuVertical.Controls.Add(this.btnAdm);
             this.MenuVertical.Controls.Add(this.btnProf);
             this.MenuVertical.Controls.Add(this.btnAlumnos);
@@ -102,6 +105,7 @@
             this.MenuVertical.Controls.SetChildIndex(this.btnAlumnos, 0);
             this.MenuVertical.Controls.SetChildIndex(this.btnProf, 0);
             this.MenuVertical.Controls.SetChildIndex(this.btnAdm, 0);
+            this.MenuVertical.Controls.SetChildIndex(this.btnCursos, 0);
             // 
             // btnCerrarSesion
             // 
@@ -153,9 +157,9 @@
             this.btnAlumnos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnAlumnos.Image = global::Presentacion.Properties.Resources.student__3_;
             this.btnAlumnos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAlumnos.Location = new System.Drawing.Point(5, 142);
+            this.btnAlumnos.Location = new System.Drawing.Point(0, 193);
             this.btnAlumnos.Name = "btnAlumnos";
-            this.btnAlumnos.Size = new System.Drawing.Size(245, 40);
+            this.btnAlumnos.Size = new System.Drawing.Size(250, 40);
             this.btnAlumnos.TabIndex = 3;
             this.btnAlumnos.Text = "Alumnos";
             this.btnAlumnos.UseVisualStyleBackColor = true;
@@ -171,9 +175,9 @@
             this.btnProf.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnProf.Image = global::Presentacion.Properties.Resources.teacher__1_;
             this.btnProf.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProf.Location = new System.Drawing.Point(5, 188);
+            this.btnProf.Location = new System.Drawing.Point(0, 239);
             this.btnProf.Name = "btnProf";
-            this.btnProf.Size = new System.Drawing.Size(245, 40);
+            this.btnProf.Size = new System.Drawing.Size(250, 40);
             this.btnProf.TabIndex = 4;
             this.btnProf.Text = "Profesores";
             this.btnProf.UseVisualStyleBackColor = true;
@@ -189,13 +193,31 @@
             this.btnAdm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnAdm.Image = global::Presentacion.Properties.Resources.admin_with_cogwheels;
             this.btnAdm.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdm.Location = new System.Drawing.Point(5, 234);
+            this.btnAdm.Location = new System.Drawing.Point(0, 285);
             this.btnAdm.Name = "btnAdm";
-            this.btnAdm.Size = new System.Drawing.Size(245, 40);
+            this.btnAdm.Size = new System.Drawing.Size(250, 40);
             this.btnAdm.TabIndex = 5;
             this.btnAdm.Text = "Administrador";
             this.btnAdm.UseVisualStyleBackColor = true;
             this.btnAdm.Click += new System.EventHandler(this.btnAdm_Click);
+            // 
+            // btnCursos
+            // 
+            this.btnCursos.FlatAppearance.BorderSize = 0;
+            this.btnCursos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnCursos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));
+            this.btnCursos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCursos.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCursos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnCursos.Image = global::Presentacion.Properties.Resources.clientes;
+            this.btnCursos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCursos.Location = new System.Drawing.Point(-6, 51);
+            this.btnCursos.Name = "btnCursos";
+            this.btnCursos.Size = new System.Drawing.Size(256, 40);
+            this.btnCursos.TabIndex = 6;
+            this.btnCursos.Text = "Cursos";
+            this.btnCursos.UseVisualStyleBackColor = true;
+            this.btnCursos.Click += new System.EventHandler(this.btnCursos_Click);
             // 
             // VentAdministrador
             // 
@@ -227,5 +249,6 @@
         public System.Windows.Forms.Button btnAdm;
         public System.Windows.Forms.Button btnProf;
         public System.Windows.Forms.Button btnAlumnos;
+        public System.Windows.Forms.Button btnCursos;
     }
 }

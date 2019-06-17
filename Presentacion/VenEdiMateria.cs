@@ -12,7 +12,7 @@ namespace Presentacion
 {
     public partial class VenEdiMateria : VenAgrMateria
     {
-        public VenEdiMateria()
+        public VenEdiMateria(VentMaterias padre): base(padre)
         {
             InitializeComponent();
         }

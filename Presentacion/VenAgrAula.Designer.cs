@@ -46,11 +46,13 @@
             // 
             // label1
             // 
-            this.label1.Text = "Numero";
+            this.label1.Location = new System.Drawing.Point(243, 55);
+            this.label1.Size = new System.Drawing.Size(74, 24);
+            this.label1.Text = "Numero:";
             // 
             // label2
             // 
-            this.label2.Text = "Capacidad";
+            this.label2.Text = "Capacidad:";
             // 
             // btnGuardar
             // 
@@ -65,6 +67,7 @@
             // 
             this.errorTxtBox1.SoloNumeros = true;
             this.errorTxtBox1.Validar = true;
+            this.errorTxtBox1.TextChanged += new System.EventHandler(this.errorTxtBox1_TextChanged);
             // 
             // label3
             // 
@@ -86,11 +89,11 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label4.Location = new System.Drawing.Point(223, 142);
+            this.label4.Location = new System.Drawing.Point(233, 142);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 21);
+            this.label4.Size = new System.Drawing.Size(78, 21);
             this.label4.TabIndex = 11;
-            this.label4.Text = "Internet";
+            this.label4.Text = "Internet:";
             // 
             // label5
             // 
@@ -99,9 +102,9 @@
             this.label5.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label5.Location = new System.Drawing.Point(223, 183);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(84, 21);
+            this.label5.Size = new System.Drawing.Size(88, 21);
             this.label5.TabIndex = 12;
-            this.label5.Text = "Proyector";
+            this.label5.Text = "Proyector:";
             // 
             // cBoxInternet
             // 
@@ -109,11 +112,11 @@
             this.cBoxInternet.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.cBoxInternet.FormattingEnabled = true;
             this.cBoxInternet.Items.AddRange(new object[] {
-            "true",
-            "false"});
-            this.cBoxInternet.Location = new System.Drawing.Point(376, 142);
+            "SI",
+            "NO"});
+            this.cBoxInternet.Location = new System.Drawing.Point(329, 142);
             this.cBoxInternet.Name = "cBoxInternet";
-            this.cBoxInternet.Size = new System.Drawing.Size(121, 21);
+            this.cBoxInternet.Size = new System.Drawing.Size(210, 21);
             this.cBoxInternet.TabIndex = 13;
             // 
             // cBoxProyector
@@ -122,11 +125,11 @@
             this.cBoxProyector.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.cBoxProyector.FormattingEnabled = true;
             this.cBoxProyector.Items.AddRange(new object[] {
-            "true",
-            "false"});
-            this.cBoxProyector.Location = new System.Drawing.Point(376, 183);
+            "SI",
+            "NO"});
+            this.cBoxProyector.Location = new System.Drawing.Point(329, 183);
             this.cBoxProyector.Name = "cBoxProyector";
-            this.cBoxProyector.Size = new System.Drawing.Size(121, 21);
+            this.cBoxProyector.Size = new System.Drawing.Size(210, 21);
             this.cBoxProyector.TabIndex = 14;
             // 
             // VenAgrAula

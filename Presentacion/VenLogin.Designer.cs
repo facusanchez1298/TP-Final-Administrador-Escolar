@@ -1,6 +1,4 @@
-﻿using MiLibreria;
-
-namespace Presentacion
+﻿namespace Presentacion
 {
     partial class VenLogin
     {
@@ -176,7 +174,6 @@ namespace Presentacion
             this.rBtnAlumno.TabStop = true;
             this.rBtnAlumno.Text = "Alumno";
             this.rBtnAlumno.UseVisualStyleBackColor = true;
-            this.rBtnAlumno.CheckedChanged += new System.EventHandler(this.rBtnAlumno_CheckedChanged);
             // 
             // lblErrorConexion
             // 

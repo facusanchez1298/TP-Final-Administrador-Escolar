@@ -40,7 +40,7 @@ namespace Presentacion
 
         }
 
-       
+   
 
         private void btnAulas_Click(object sender, EventArgs e)
         {
@@ -113,8 +113,14 @@ namespace Presentacion
              {
                  btnAulas.BackColor = Color.FromArgb(25, 38, 70);
              }
-
-
+            if (Application.OpenForms["VentCursos"] == null)
+            {
+                btnCursos.BackColor = Color.FromArgb(25, 38, 70);
+            }
+            if (Application.OpenForms["VenEdiAdm"] == null)
+            {
+                btnPersonal.BackColor = Color.FromArgb(25, 38, 70);
+            }
 
 
         }
@@ -124,6 +130,17 @@ namespace Presentacion
             //if (btnCerrarSesion.Visible == true) btnCerrarSesion.Visible = false;
             //else btnCerrarSesion.Visible = true;
             
+        }
+
+        private void btnCursos_Click(object sender, EventArgs e)
+        {
+            btnCursos.BackColor = Color.FromArgb(12, 63, 92);
+            AbrirFormEnPanel<VentCursos>();
+        }
+
+        private void btnPersonal_Click(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel<VenEdiAdm>();
         }
     }
 }

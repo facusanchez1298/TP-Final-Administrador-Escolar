@@ -423,6 +423,16 @@ namespace Presentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap upload_file {
+            get {
+                object obj = ResourceManager.GetObject("upload-file", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap UTN_logo {
             get {
                 object obj = ResourceManager.GetObject("UTN_logo", resourceCulture);

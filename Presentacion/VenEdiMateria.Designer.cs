@@ -54,18 +54,18 @@
             // 
             // TitleBar
             // 
-            this.TitleBar.Size = new System.Drawing.Size(651, 40);
+            this.TitleBar.Size = new System.Drawing.Size(596, 40);
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(0, 364);
-            this.panel1.Size = new System.Drawing.Size(651, 15);
+            this.panel1.Location = new System.Drawing.Point(0, 333);
+            this.panel1.Size = new System.Drawing.Size(596, 15);
             // 
             // VenEdiMateria
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(651, 379);
+            this.ClientSize = new System.Drawing.Size(596, 348);
             this.Name = "VenEdiMateria";
             this.Text = "VenEdiMateria";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

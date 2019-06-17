@@ -183,6 +183,7 @@
             this.Name = "VenAgr";
             this.Opacity = 1D;
             this.Text = "VenAgrAula";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VenAgr_FormClosing);
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.pictureBox1, 0);

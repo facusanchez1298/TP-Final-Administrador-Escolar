@@ -15,6 +15,7 @@ namespace Presentacion
 {
     public partial class VenLogin : FormBase
     {
+
         Conexion conexion;
         public VenLogin()
         {
@@ -23,11 +24,10 @@ namespace Presentacion
             conexion.crearBaseDeDatos();
             InitializeComponent();
             //conexion.crearUsuario(1234, "1234", rBtnAlumno.Text);
-            //conexion.crearUsuario(1234, "1234",rBtnProfesor.Text);
+            //conexion.crearUsuario(1234, "1234", rBtnProfesor.Text);
             //conexion.crearUsuario(1234, "1234", rBtnAdministrador.Text);
         }
 
-        //Conexion con = new Conexion; 
 
         // esto me permite poder mover la ventana de login con el cursor
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
@@ -50,43 +50,47 @@ namespace Presentacion
         private void btnIniciar_Click(object sender, EventArgs e)
         {
 
-
             if (Utilidades.ValidarFormulario(this, errorProvider1) == false)
             {
                 int usuario = int.Parse(txtUsuario.Text);
                 string contraseña = txtContraceña.Text;
-                               
+
                 if (rBtnAdministrador.Checked)
                 {
                     if (conexion.iniciarSesion(usuario, contraseña, rBtnAdministrador.Text))
                     {
                         VentAdministrador NuevaVentana = new VentAdministrador();
                         NuevaVentana.Show();
-                        NuevaVentana.FormClosed += cerrarCecion;
+                        NuevaVentana.FormClosed += cerrarSesion;
                         this.Hide();
-                    }                    
+                    }
                 }
+
 
                 else if (rBtnAlumno.Checked)
                 {
                     if (conexion.iniciarSesion(usuario, contraseña, rBtnAlumno.Text))
                     {
-                        VentAlumnos NuevaVentana = new VentAlumnos();
+                        VentAlumno NuevaVentana = new VentAlumno();
                         NuevaVentana.Show();
-                        NuevaVentana.FormClosed += cerrarCecion;
+                        NuevaVentana.FormClosed += cerrarSesion;
                         this.Hide();
                     }
                 }
+
+
                 else if (rBtnProfesor.Checked)
                 {
                     if (conexion.iniciarSesion(usuario, contraseña, rBtnProfesor.Text))
                     {
-                        VentProfesores NuevaVentana = new VentProfesores();
+                        VentProfesor NuevaVentana = new VentProfesor(this.txtUsuario.Text);
                         NuevaVentana.Show();
-                        NuevaVentana.FormClosed += cerrarCecion;
+                        NuevaVentana.FormClosed += cerrarSesion;
                         this.Hide();
                     }
                 }
+
+
                 else
                 {
                     msgError("Error en el Usuario o la Contraseña...Intente de nuevo...");
@@ -94,26 +98,14 @@ namespace Presentacion
                     txtContraceña.Text = "";
                     txtUsuario.Focus();
                 }
-
             }
-
-
-
-                //if (Utilidades.ValidarFormulario(this, errorProvider1) == false)
-                //{                    
-                //   
-
-                //}
-                //else
-                //{
-                //    //msgError("Error en el Usuario o la Contraseña...Intente de nuevo...");
-                //    txtUsuario.Text = "";
-                //    txtContraceña.Text = "";
-                //    txtUsuario.Focus();
-                //}
-                
+            
+            
         }
-        
+
+
+
+
         //esto es para que cuando no encuentre el usuario o le erre en la contraceña muestre un msj de error
         private void msgError(string msg)
         {
@@ -121,7 +113,7 @@ namespace Presentacion
             lblErrorConexion.Visible = true;
         }
 
-        private void cerrarCecion(object sender, FormClosedEventArgs e)
+        private void cerrarSesion(object sender, FormClosedEventArgs e)
         {
             txtUsuario.Clear();
             txtContraceña.Clear();
@@ -131,9 +123,7 @@ namespace Presentacion
             errorProvider1.Clear();
         }
 
-        private void rBtnAlumno_CheckedChanged(object sender, EventArgs e)
-        {
 
-        }
+
     }
 }

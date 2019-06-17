@@ -12,8 +12,10 @@ namespace Presentacion
 {
     public partial class VenAgr : FormBase
     {
+        
+
         public VenAgr()
-        {
+        {            
             InitializeComponent();
         }
         
@@ -45,6 +47,11 @@ namespace Presentacion
                   
                 }*/
 
+            
+        }
+
+        private void VenAgr_FormClosing(object sender, FormClosingEventArgs e)
+        {
             
         }
     }

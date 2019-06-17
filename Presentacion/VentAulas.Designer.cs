@@ -53,6 +53,7 @@
             // btnElliminar
             // 
             this.btnElliminar.FlatAppearance.BorderSize = 0;
+            this.btnElliminar.Click += new System.EventHandler(this.btnElliminar_Click);
             // 
             // label1
             // 
@@ -81,7 +82,6 @@
             this.Name = "VentAulas";
             this.Text = "VentAulas";
             this.Load += new System.EventHandler(this.VentAulas_Load);
-            this.Resize += new System.EventHandler(this.VentAulas_Resize);
             this.Controls.SetChildIndex(this.btnCerrar, 0);
             this.Controls.SetChildIndex(this.btnEditar, 0);
             this.Controls.SetChildIndex(this.btnAgregar, 0);

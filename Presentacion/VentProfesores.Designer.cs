@@ -34,6 +34,7 @@
             // 
             // btnBuscar
             // 
+            this.btnBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuscar.FlatAppearance.BorderSize = 0;
             this.btnBuscar.Location = new System.Drawing.Point(517, 15);
             // 
@@ -44,21 +45,26 @@
             // btnEditar
             // 
             this.btnEditar.FlatAppearance.BorderSize = 0;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnAgregar
             // 
             this.btnAgregar.FlatAppearance.BorderSize = 0;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // btnElliminar
             // 
             this.btnElliminar.FlatAppearance.BorderSize = 0;
+            this.btnElliminar.Click += new System.EventHandler(this.btnElliminar_Click);
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.Location = new System.Drawing.Point(148, 23);
             // 
             // errorTxtBox1
             // 
+            this.errorTxtBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.errorTxtBox1.Location = new System.Drawing.Point(231, 17);
             // 
             // pictureBox1
@@ -75,7 +81,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(661, 450);
             this.Controls.Add(this.pictureBox1);
             this.Name = "VentProfesores";
             this.Text = "VentProfesores";

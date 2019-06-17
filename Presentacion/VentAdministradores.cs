@@ -16,5 +16,17 @@ namespace Presentacion
         {
             InitializeComponent();
         }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            VenAgrAdm NuevaVentana = new VenAgrAdm();
+            NuevaVentana.ShowDialog();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            VenEdiAdm NuevaVentana = new VenEdiAdm();
+            NuevaVentana.ShowDialog();
+        }
     }
 }

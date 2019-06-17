@@ -39,19 +39,25 @@
             // btnCerrar
             // 
             this.btnCerrar.FlatAppearance.BorderSize = 0;
+            this.btnCerrar.Location = new System.Drawing.Point(506, 430);
             // 
             // btnEditar
             // 
             this.btnEditar.FlatAppearance.BorderSize = 0;
+            this.btnEditar.Location = new System.Drawing.Point(169, 430);
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnAgregar
             // 
             this.btnAgregar.FlatAppearance.BorderSize = 0;
+            this.btnAgregar.Location = new System.Drawing.Point(29, 430);
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // btnElliminar
             // 
             this.btnElliminar.FlatAppearance.BorderSize = 0;
+            this.btnElliminar.Location = new System.Drawing.Point(309, 430);
+            this.btnElliminar.Click += new System.EventHandler(this.btnElliminar_Click);
             // 
             // label1
             // 
@@ -75,7 +81,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(651, 478);
             this.Controls.Add(this.pictureBox1);
             this.Name = "VentAlumnos";
             this.Text = "VentAlumnos";
