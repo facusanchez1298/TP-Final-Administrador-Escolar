@@ -58,8 +58,7 @@ namespace Presentacion
         }
 
         private void btnAlumnos_Click(object sender, EventArgs e)
-        {
-            
+        {            
             btnAulas.BackColor = Color.FromArgb(12, 63, 92);
         }
 
@@ -77,8 +76,8 @@ namespace Presentacion
         {
             if (MenuVertical.Width == 250)
             {
-                MenuVertical.Width = 70;
-                btnPanel.Location = new Point(70, 0);
+                MenuVertical.Width = 55;
+                btnPanel.Location = new Point(55, 0);
             }
             else
             {

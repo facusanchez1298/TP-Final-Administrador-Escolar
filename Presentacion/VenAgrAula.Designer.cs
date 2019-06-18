@@ -67,7 +67,6 @@
             // 
             this.errorTxtBox1.SoloNumeros = true;
             this.errorTxtBox1.Validar = true;
-            this.errorTxtBox1.TextChanged += new System.EventHandler(this.errorTxtBox1_TextChanged);
             // 
             // label3
             // 

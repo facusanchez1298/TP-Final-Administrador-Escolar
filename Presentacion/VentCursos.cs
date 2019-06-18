@@ -29,7 +29,7 @@ namespace Presentacion
 
             if (e.Button == MouseButtons.Left)
             {
-                string año = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                string año = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
                 string division = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
 
                 VenAgrAsignaturaACurso agrAlumnoAMateria = new VenAgrAsignaturaACurso(año, division);

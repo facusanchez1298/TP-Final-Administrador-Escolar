@@ -12,9 +12,7 @@ using tp_lab_3;
 namespace Presentacion
 {
     public partial class VentMaterias : FormEdicion
-    {
-
-        DataGridViewRow seleccionada;
+    {                
 
         Conexion conexion;
         public VentMaterias()

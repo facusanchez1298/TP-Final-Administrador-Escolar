@@ -35,10 +35,7 @@ namespace Presentacion
             AbrirFormEnPanel<VentAdministradores>();
         }
 
-        private void btnCerrarSesion_Click(object sender, EventArgs e)
-        {
-
-        }
+       
 
    
 

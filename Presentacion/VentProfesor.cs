@@ -20,10 +20,7 @@ namespace Presentacion
             InitializeComponent();
         }
 
-        private void btnCargarExamenes_Click(object sender, EventArgs e)
-        {
-            btnCargarExamenes.BackColor = Color.FromArgb(12, 63, 92);
-        }
+        
 
 
         //METODO PARA ABRIR FORM DENTRO DE PANEL-----------------------------------------------------
@@ -44,17 +41,17 @@ namespace Presentacion
                 panelformularios.Tag = formulario;
                 formulario.Show();
                 formulario.FormClosed += closeForms;
+                formulario.darPadre(this);
 
-                if(formulario.GetType() == typeof(MostProMat)) (formulario as MostProMat).dni = dni; 
-                else if (formulario.GetType() == typeof(MostProAul)) (formulario as MostProAul).dni = dni;
-
-
+                if (formulario.GetType() == typeof(MostProMat)) (formulario as MostProMat).actualizarTabla();
+                else if (formulario.GetType() == typeof(MostProAul)) (formulario as MostProAul).actualizarTabla();
+                else if (formulario.GetType() == typeof(AgregarNotaExamen)) (formulario as AgregarNotaExamen).ActualizarTabla();
+               
 
                 formulario.BringToFront();               
             }
             else
             {
-
                 //si la Formulario/instancia existe, lo traemos a frente
                 formulario.BringToFront();
 
@@ -68,8 +65,6 @@ namespace Presentacion
 
           
         }
-
-
         //arregla el color
         private void closeForms(object sender, FormClosedEventArgs e)
         {
@@ -87,6 +82,17 @@ namespace Presentacion
         private void btnMaterias_Click(object sender, EventArgs e)
         {
             AbrirFormEnPanel<MostProMat>(dni);
+        }
+
+        private void btnPersonal_Click(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel<MostCambioContraseña>(dni);
+        }
+
+        private void btnCargarExamenes_Click(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel<AgregarNotaExamen>(dni);
+            // btnCargarExamenes.BackColor = Color.FromArgb(12, 63, 92);
         }
     }
 }

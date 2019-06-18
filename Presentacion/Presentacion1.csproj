@@ -81,6 +81,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgregarNotaExamen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgregarNotaExamen.Designer.cs">
+      <DependentUpon>AgregarNotaExamen.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +98,12 @@
     </Compile>
     <Compile Include="FormEdicion.Designer.cs">
       <DependentUpon>FormEdicion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MostCambioContraseña.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MostCambioContraseña.Designer.cs">
+      <DependentUpon>MostCambioContraseña.cs</DependentUpon>
     </Compile>
     <Compile Include="MostExamAlu.cs">
       <SubType>Form</SubType>
@@ -281,11 +293,17 @@
     <Compile Include="VentProfesores.Designer.cs">
       <DependentUpon>VentProfesores.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AgregarNotaExamen.resx">
+      <DependentUpon>AgregarNotaExamen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormBase.resx">
       <DependentUpon>FormBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormEdicion.resx">
       <DependentUpon>FormEdicion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MostCambioContraseña.resx">
+      <DependentUpon>MostCambioContraseña.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MostExamAlu.resx">
       <DependentUpon>MostExamAlu.cs</DependentUpon>

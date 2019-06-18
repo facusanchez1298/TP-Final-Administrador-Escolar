@@ -14,13 +14,20 @@ namespace Presentacion
     {
 
         public string dni;
+        public VentPrincBase padre;
 
-        public DataGridViewRow seleccionado { get; private set; }
+        public DataGridViewRow seleccionado { get; set; }
 
         public MostBase()
         {
             InitializeComponent();
             dataGridView1.AutoResizeColumns();
+            
+        }
+
+        public void darPadre(VentPrincBase padre)
+        {
+            this.padre = padre;
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -33,7 +40,7 @@ namespace Presentacion
             this.dni = dni;
         }
 
-        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void seleccionarFila(object sender, DataGridViewCellMouseEventArgs e)
         {
 
             if (e.Button == MouseButtons.Left && e.RowIndex > -1)

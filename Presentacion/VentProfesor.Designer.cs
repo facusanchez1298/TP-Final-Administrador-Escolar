@@ -69,6 +69,8 @@
             this.btnPersonal.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPersonal.Location = new System.Drawing.Point(-7, 114);
             this.btnPersonal.Size = new System.Drawing.Size(257, 48);
+            this.btnPersonal.Text = "  Cambiar Contraseña";
+            this.btnPersonal.Click += new System.EventHandler(this.btnPersonal_Click);
             // 
             // btnAulas
             // 
@@ -120,11 +122,11 @@
             // 
             // btnMinimizar
             // 
-            this.btnMinimizar.Location = new System.Drawing.Point(746, 12);
+            this.btnMinimizar.Location = new System.Drawing.Point(602, 12);
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(790, 12);
+            this.btnCerrar.Location = new System.Drawing.Point(646, 12);
             // 
             // btnCargarExamenes
             // 

@@ -32,10 +32,10 @@ namespace Presentacion
             {
                 int numero = int.Parse(errorTxtBox1.Text);
                 int capacidad = int.Parse(errorTxtBox2.Text);
-                bool proyector = (cBoxProyector.Text == "si") ? true : false;
-                bool internet = (cBoxInternet.Text == "si") ? true : false;
+                bool proyector = (cBoxProyector.Text == "SI") ? true : false;
+                bool internet = (cBoxInternet.Text == "SI") ? true : false;
 
-                
+               
 
                 conexion.guardarAula(numero, capacidad, internet, proyector);
 
@@ -44,30 +44,11 @@ namespace Presentacion
 
                 
             }
+            else MessageBox.Show("No se pudo guardar");
 
-
-
-
-                if (Utilidades.ValidarFormulario(this, errorProvider1) == false)
-                {
-                MessageBox.Show("Se guardo correctamete");
-                this.Close();
-
-                    
-
-                }
-                else
-                {
-                errorTxtBox1.Text = "";
-                errorTxtBox2.Text = "";
-                MessageBox.Show("No se pudo guardar");
-
-            }
+            this.Close();
         }
 
-        private void errorTxtBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+      
     }
 }

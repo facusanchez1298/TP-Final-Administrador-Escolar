@@ -39,21 +39,21 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Presentacion.Properties.Resources.edit__1_;
-            this.pictureBox1.Location = new System.Drawing.Point(582, 65);
-            this.pictureBox1.Size = new System.Drawing.Size(205, 208);
+            this.pictureBox1.Location = new System.Drawing.Point(501, 65);
+            this.pictureBox1.Size = new System.Drawing.Size(112, 112);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             // 
             // btnSalir
             // 
             this.btnSalir.FlatAppearance.BorderSize = 0;
-            this.btnSalir.Location = new System.Drawing.Point(582, 356);
-            this.btnSalir.Size = new System.Drawing.Size(195, 38);
+            this.btnSalir.Location = new System.Drawing.Point(501, 373);
+            this.btnSalir.Size = new System.Drawing.Size(112, 38);
             // 
             // MostExamAlu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(816, 489);
+            this.ClientSize = new System.Drawing.Size(628, 451);
             this.Name = "MostExamAlu";
             this.Text = "MostAulAlum";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

@@ -7,67 +7,94 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using tp_lab_3;
 
 namespace Presentacion
 {
     public partial class VentAlumno : VentPrincBase
     {
-        public VentAlumno()
+
+        string dni;
+        
+        public VentAlumno(string dni)
         {
+            this.dni = dni;
             InitializeComponent();
+
+                       
         }
         //METODO PARA ABRIR FORM DENTRO DE PANEL-----------------------------------------------------
-       public void AbrirFormEnPanel<Forms>() where Forms : Form, new()
-       {
-           Form formulario;
-           formulario = panelformularios.Controls.OfType<Forms>().FirstOrDefault();
+        public void AbrirFormEnPanel<Form>(string dni) where Form : MostBase, new()
+        {
+            Form formulario;
+            formulario = panelformularios.Controls.OfType<Form>().FirstOrDefault();
 
-           //si el formulario/instancia no existe, creamos nueva instancia y mostramos
-           if (formulario == null)
-           {
-               formulario = new Forms();
-               formulario.TopLevel = false;
-               formulario.FormBorderStyle = FormBorderStyle.None;
-               formulario.Dock = DockStyle.Fill;
-               panelformularios.Controls.Add(formulario);
-               panelformularios.Tag = formulario;
-               formulario.Show();
+            //si el formulario/instancia no existe, creamos nueva instancia y mostramos
+            if (formulario == null)
+            {
+                formulario = new Form();
+                formulario.TopLevel = false;
+                formulario.FormBorderStyle = FormBorderStyle.None;
+                formulario.Dock = DockStyle.Fill;
 
-               formulario.BringToFront();
+                formulario.darDni(dni);
+                formulario.darPadre(this);
+                if (formulario.GetType() == typeof(MostMatAlum)) (formulario as MostMatAlum).actualizarTabla();
+                else if (formulario.GetType() == typeof(MostExamAlu)) (formulario as MostExamAlu).actualizarTabla();
 
-               formulario.FormClosed += new FormClosedEventHandler(CloseForms);               
-           }
-           else
-           {
 
-               //si la Formulario/instancia existe, lo traemos a frente
-               formulario.BringToFront();
+                panelformularios.Controls.Add(formulario);
+                panelformularios.Tag = formulario;
+                formulario.Show();
+                formulario.FormClosed += closeForms;
 
-               //Si la instancia esta minimizada mostramos
-               if (formulario.WindowState == FormWindowState.Minimized)
-               {
-                   formulario.WindowState = FormWindowState.Normal;
-               }
 
-           }
-           //Esto es para cuendo cierre los formularios q me vuelva el boton al mismo color del panel
-            void CloseForms(object sender, FormClosedEventArgs e)
-           {
-               if (Application.OpenForms["MostMatAlum"] == null)
-                   btnMaterias.BackColor = Color.FromArgb(25, 38, 70);
-                if (Application.OpenForms["MostAulAlum"] == null)
-                    btnAulas.BackColor = Color.FromArgb(25, 38, 70);
+               
+
+
+                formulario.BringToFront();
+                
             }
-       }
+            else
+            {
+                //si la Formulario/instancia existe, lo traemos a frente
+                formulario.BringToFront();
+
+                //Si la instancia esta minimizada mostramos
+                if (formulario.WindowState == FormWindowState.Minimized)
+                {
+                    formulario.WindowState = FormWindowState.Normal;
+                }
+
+            }
+        }
+        //arregla el color
+        private void closeForms(object sender, FormClosedEventArgs e)
+        {
+            if (Application.OpenForms["MostProMat"] == null)
+                btnMaterias.BackColor = Color.FromArgb(25, 38, 70);
+            if (Application.OpenForms["MostProAul"] == null)
+                btnAulas.BackColor = Color.FromArgb(25, 38, 70);
+        }
 
         private void btnMaterias_Click(object sender, EventArgs e)
         {
-            AbrirFormEnPanel<MostMatAlum>();
+            AbrirFormEnPanel<MostMatAlum>(dni);
         }
 
         private void btnAulas_Click(object sender, EventArgs e)
         {
-            AbrirFormEnPanel<MostExamAlu>();
+            AbrirFormEnPanel<MostExamAlu>(dni);
+        }
+
+        private void btnPersonal_Click(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel<MostCambioContraseña>(dni);
+        }
+
+        private void btnPanel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

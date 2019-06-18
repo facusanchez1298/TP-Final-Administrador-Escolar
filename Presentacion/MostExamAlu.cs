@@ -22,9 +22,9 @@ namespace Presentacion
             actualizarTabla();
         }
 
-        private void actualizarTabla()
+        public void actualizarTabla()
         {
-            conexion.tablaExamenes(this.dni, dataGridView1);
+            conexion.tablaExamenesAlumno(this.dni, dataGridView1);
         }
     }
 }

@@ -41,14 +41,17 @@ namespace Presentacion
         {
             int dni = (int)comboBox1.SelectedValue;
             conexion.guardarAlu_Asig(dni, id_asignatura);
+            conexion.guardarExamen(dni, id_asignatura);
             actualizarTabla();
         }
 
         private void borrarAlumno(object sender, EventArgs e)
         {
             if (seleccionado != null)
-            {                
-                conexion.removerAlumno_asignatura((int)seleccionado.Cells["dni"].Value, id_asignatura);
+            {
+                int dni = (int)seleccionado.Cells["dni"].Value;
+                conexion.removerAlumno_asignatura(dni, id_asignatura);
+                conexion.removerExamenes(dni, id_asignatura);
                 actualizarTabla();
             }
         }

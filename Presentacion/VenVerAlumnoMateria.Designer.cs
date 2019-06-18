@@ -41,21 +41,22 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(495, 45);
+            this.pictureBox1.Location = new System.Drawing.Point(507, 45);
+            this.pictureBox1.Size = new System.Drawing.Size(134, 132);
             // 
             // btnSalir
             // 
             this.btnSalir.FlatAppearance.BorderSize = 0;
-            this.btnSalir.Location = new System.Drawing.Point(471, 373);
-            this.btnSalir.Size = new System.Drawing.Size(175, 38);
+            this.btnSalir.Location = new System.Drawing.Point(483, 373);
+            this.btnSalir.Size = new System.Drawing.Size(163, 38);
             // 
             // comboBox1
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(471, 65);
+            this.comboBox1.Location = new System.Drawing.Point(483, 65);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(175, 21);
+            this.comboBox1.Size = new System.Drawing.Size(163, 21);
             this.comboBox1.TabIndex = 4;
             // 
             // button1
@@ -68,9 +69,9 @@
             this.button1.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.button1.Image = global::Presentacion.Properties.Resources.clientes;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(471, 102);
+            this.button1.Location = new System.Drawing.Point(483, 101);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(175, 35);
+            this.button1.Size = new System.Drawing.Size(163, 35);
             this.button1.TabIndex = 5;
             this.button1.Text = "Agregar";
             this.button1.UseVisualStyleBackColor = false;
@@ -86,9 +87,9 @@
             this.button2.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.button2.Image = global::Presentacion.Properties.Resources.cancel_button;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(471, 155);
+            this.button2.Location = new System.Drawing.Point(483, 151);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(175, 35);
+            this.button2.Size = new System.Drawing.Size(163, 35);
             this.button2.TabIndex = 5;
             this.button2.Text = "Eliminar";
             this.button2.UseVisualStyleBackColor = false;

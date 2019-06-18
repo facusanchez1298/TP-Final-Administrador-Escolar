@@ -203,7 +203,7 @@
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "VenLogin";
-            this.Opacity = 0.9D;
+            this.Opacity = 0.95D;
             this.Text = "VenLogin";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.VenLogin_MouseDown);
             this.Controls.SetChildIndex(this.panel1, 0);

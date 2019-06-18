@@ -15,6 +15,7 @@ namespace Presentacion
 {
     public partial class VenLogin : FormBase
     {
+        string dni;
 
         Conexion conexion;
         public VenLogin()
@@ -54,6 +55,7 @@ namespace Presentacion
             {
                 int usuario = int.Parse(txtUsuario.Text);
                 string contraseña = txtContraceña.Text;
+                string dni = usuario.ToString();
 
                 if (rBtnAdministrador.Checked)
                 {
@@ -64,6 +66,7 @@ namespace Presentacion
                         NuevaVentana.FormClosed += cerrarSesion;
                         this.Hide();
                     }
+                    else conexion.mostrarMensaje("Usuario o contraseña invalidos");
                 }
 
 
@@ -71,11 +74,12 @@ namespace Presentacion
                 {
                     if (conexion.iniciarSesion(usuario, contraseña, rBtnAlumno.Text))
                     {
-                        VentAlumno NuevaVentana = new VentAlumno();
+                        VentAlumno NuevaVentana = new VentAlumno(dni);
                         NuevaVentana.Show();
                         NuevaVentana.FormClosed += cerrarSesion;
                         this.Hide();
                     }
+                    else conexion.mostrarMensaje("Usuario o contraseña invalidos");
                 }
 
 
@@ -88,14 +92,14 @@ namespace Presentacion
                         NuevaVentana.FormClosed += cerrarSesion;
                         this.Hide();
                     }
+                    else conexion.mostrarMensaje("Usuario o contraseña invalidos");
                 }
 
 
                 else
                 {
-                    msgError("Error en el Usuario o la Contraseña...Intente de nuevo...");
-                    txtUsuario.Text = "";
-                    txtContraceña.Text = "";
+                    conexion.mostrarMensaje("Usuario o contraseña invalidos");
+                    msgError("Error en el Usuario o la Contraseña...Intente de nuevo...");                    
                     txtUsuario.Focus();
                 }
             }

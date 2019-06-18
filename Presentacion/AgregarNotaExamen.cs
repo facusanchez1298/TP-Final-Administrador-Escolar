@@ -11,24 +11,20 @@ using tp_lab_3;
 
 namespace Presentacion
 {
-    public partial class MostMatAlum : MostBase
+    public partial class AgregarNotaExamen : MostBase
     {
         Conexion conexion;
-        public string dni_alumno;
-
-        public MostMatAlum()
+        public AgregarNotaExamen()
         {
             conexion = new Conexion();
             InitializeComponent();
-            actualizarTabla();
-            
+            domainUpDown1.SelectedIndex = 0;
+            ActualizarTabla();
         }
 
-
-
-        public void actualizarTabla()
-        {            
-            conexion.tablaMateriasAlumno(this.dni, dataGridView1);
+        public void ActualizarTabla()
+        {
+            conexion.tablaExamenesProfesor(dni, dataGridView1);
         }
     }
 }

@@ -41,6 +41,9 @@ namespace Presentacion
                 Profesor profesor = new Profesor(nombre, apellido, dni, direccion, telefono, delCentro);
 
                 conexion.guardarProfesor(profesor);
+                conexion.crearUsuario(dni, dni.ToString(), "Profesor");
+
+                //estoy agregando el usuario a profesor
 
                 padre.actualizarTabla();
                 MessageBox.Show("Se guardo correctamete");
@@ -49,13 +52,9 @@ namespace Presentacion
 
 
             }
-            else
-            {
-                errorTxtBox1.Text = "";
-                errorTxtBox2.Text = "";
-                MessageBox.Show("No se pudo guardar");
+            else MessageBox.Show("No se pudo guardar");
 
-            }
+            
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

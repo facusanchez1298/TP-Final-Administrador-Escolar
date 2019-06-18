@@ -40,6 +40,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             this.SuspendLayout();
             // 
+            // btnPanel
+            // 
+            this.btnPanel.Click += new System.EventHandler(this.btnPanel_Click);
+            // 
             // btnMaximizar
             // 
             this.btnMaximizar.Location = new System.Drawing.Point(798, 12);
@@ -68,6 +72,8 @@
             this.btnPersonal.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPersonal.Location = new System.Drawing.Point(-9, 114);
             this.btnPersonal.Size = new System.Drawing.Size(259, 48);
+            this.btnPersonal.Text = "      Cambiar Contraseña";
+            this.btnPersonal.Click += new System.EventHandler(this.btnPersonal_Click);
             // 
             // btnAulas
             // 
@@ -88,6 +94,10 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.None;
             this.pictureBox1.Size = new System.Drawing.Size(598, 442);
             // 
             // btnCerrarSesion
@@ -115,11 +125,11 @@
             // 
             // btnMinimizar
             // 
-            this.btnMinimizar.Location = new System.Drawing.Point(734, 12);
+            this.btnMinimizar.Location = new System.Drawing.Point(756, 12);
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(780, 12);
+            this.btnCerrar.Location = new System.Drawing.Point(778, 12);
             this.btnCerrar.Size = new System.Drawing.Size(14, 16);
             // 
             // VentAlumno
