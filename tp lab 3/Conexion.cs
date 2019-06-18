@@ -26,6 +26,7 @@ namespace tp_lab_3
         /// curso
 
         #region tablas
+
         string crearTablaAlu_Asig = "create table if not exists alumno_asignatura(" +
                                             "dni_alumno int not null," +
                                             "id_asignatura int not null," +
@@ -35,7 +36,7 @@ namespace tp_lab_3
                                             "FOREIGN KEY(dni_alumno) REFERENCES Alumno(dni_alumno)," +
                                             "FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id_asignatura));";
 
-       
+        
 
         string creatTablaProf_Asig = "create table if not exists Profesor_Asignatura(" +
                                             "dni_profesor int not null," +
@@ -44,6 +45,7 @@ namespace tp_lab_3
                                             "FOREIGN KEY(dni_profesor) REFERENCES Profesor(dni)," +
                                             "FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id_asignatura));";
 
+       
 
         string crearTablaCurso_Asig = "create table if not exists Curso_Asignatura(" +
                                             "año varchar not null," +
@@ -58,11 +60,11 @@ namespace tp_lab_3
         string crearTablaExamenes = "create table if not exists Examen(" +
                                             "id_asignatura int not null," +
                                             "dni_Alumno int not null," +
-                                            "primerParcial int default -1," +
-                                            "segundoParcial int default -1," +
-                                            "tercerParcial int default -1," +
-                                            "primerRecuperatorio int default -1," +
-                                            "segundoRecuperatorio int default -1," +
+                                            "primerParcial int default null," +
+                                            "segundoParcial int default null," +
+                                            "tercerParcial int default null," +
+                                            "primerRecuperatorio int default null," +
+                                            "segundoRecuperatorio int default null," +
                                             "primary key(id_asignatura, dni_Alumno));";
 
         string crearTablaCorrelatividad = "create table if not exists Correlatividad(" +
@@ -335,7 +337,33 @@ namespace tp_lab_3
                 desconectar();
             }
         }
-       //
+
+        public void cambiarContraseña(string usuario, string vieja, string nueva)
+        {
+            try
+            {
+                conectar();
+                string sql = "update usuario" +
+                             " set contraseña = '" + nueva + "'" +
+                             " where usuario = '" + usuario +
+                             "' and contraseña = '" + vieja + "'";
+
+                command = new SQLiteCommand(sql, connection);
+
+                command.ExecuteNonQuery();
+                command.Connection.Close();
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Error: " + e);
+            }
+            finally
+            {
+                desconectar();
+            }
+        }
+        //
         //
         //
         //      eliminar elementos
@@ -418,7 +446,7 @@ namespace tp_lab_3
                 conectar();
                 string sql = "delete from curso " +
                              "where año = " + año +
-                             " and division = " + division;
+                             " and division = '" + division + "'";
 
 
                 command = new SQLiteCommand(sql, connection);
@@ -467,6 +495,57 @@ namespace tp_lab_3
                 conectar();
                 string sql = "delete from asignatura " +
                              "where id_asignatura = " + id_asignatura;
+
+
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
+
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error: " + e);
+            }
+            finally
+            {
+                desconectar();
+            }
+        }
+
+        public void removerCurso_asignatura(string año, string division, int id_asignatura)
+        {
+            try
+            {
+                conectar();
+                string sql = "delete from curso_asignatura" +
+                             " where id_asignatura = " + id_asignatura +
+                             " and curso_asignatura.año = " + año +
+                             " and curso_asignatura.division = '" + division + "'";
+
+
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
+
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error: " + e);
+            }
+            finally
+            {
+                desconectar();
+            }
+        }
+
+        public void removerExamenes(int dni, int id_asignatura)
+        {
+            try
+            {
+                conectar();
+                string sql = "delete from examen" +
+                             " where id_asignatura = " + id_asignatura +
+                             " and dni_alumno = "+ dni;
 
 
                 command = new SQLiteCommand(sql, connection);
@@ -534,25 +613,65 @@ namespace tp_lab_3
             try
             {
                 conectar();
-                string sql = "insert into alumno_asignatura(dni_alumno, id_asignatura, aprobada) values (" + dni + "," + id + ",'false')";
+                string sql = "insert into alumno_asignatura(dni_alumno, id_asignatura, aprobada, cursando) values (" + dni + "," + id + ",'false', 'true')";
                 command = new SQLiteCommand(sql, this.connection);
 
-                try
-                {
-                    command.ExecuteNonQuery();
-                    command.Connection.Close();
-                }
-                catch (Exception e)
-                {
-
-                    mostrarMensaje("Error guardando el registro: " + e.Data);
-                }
-
-
+                
+                command.ExecuteNonQuery();
+                command.Connection.Close();
+             
             }
             catch (SQLiteException e)
             {
-                mostrarMensaje("Error guardando el registro: " + e);
+                mostrarMensaje("Error guardando el registro: " + e.Message);
+            }
+            finally
+            {
+                desconectar();
+            }
+        }
+
+        public void guardarExamen(int dni, int id_asignatura)
+        {
+            try
+            {
+                conectar();
+                string sql = "insert into Examen(dni_alumno, id_asignatura) " +
+                             "values (" + dni + "," + id_asignatura + ")";
+                command = new SQLiteCommand(sql, this.connection);
+                command.ExecuteNonQuery();
+                command.Connection.Close();
+            }
+            catch (SQLiteException e)
+            {
+                mostrarMensaje("Error guardando el registro: " + e.Message);
+            }
+            finally
+            {
+                desconectar();
+            }
+        }
+
+        public void guardarNotaExamen(int dni, string parcial, int id_asignatura, int nota )
+        {
+            try
+            {
+                conectar();
+                string sql = "insert into Examen(" + parcial + ") " +
+                             "values (" + nota + ")" +
+                             "where examen.dni_alumno = " + dni +
+                             "examen.id_asignatura = " + id_asignatura;
+
+                //agregar un examen, como se para que materia es la nota?????
+
+
+                command = new SQLiteCommand(sql, this.connection);
+                command.ExecuteNonQuery();
+                command.Connection.Close();
+            }
+            catch (SQLiteException e)
+            {
+                mostrarMensaje("Error guardando el registro: " + e.Message);
             }
             finally
             {
@@ -633,7 +752,7 @@ namespace tp_lab_3
             try
             {
                 conectar();
-                string sql = "insert into Curso_Asignatura values ('" + año + "',' " + division + "', " + id_asignatura + ")";
+                string sql = "insert into Curso_Asignatura values ('" + año + "','" + division + "', " + id_asignatura + ")";
 
                 command = new SQLiteCommand(sql, connection);
 
@@ -1580,14 +1699,16 @@ namespace tp_lab_3
             try
             {
                 conectar();
-                string sql = "select  aula.numero as ' numero del aula ', asignatura.nombre as 'materia' from profesor_asignatura, profesor, aula, asignatura, curso, curso_asignatura where" +
+
+                
+                string sql ="select  aula.numero as ' numero del aula ', asignatura.nombre as 'materia' " +
+                            " from profesor_asignatura, aula, asignatura, curso, curso_asignatura where" +
                             " curso_asignatura.id_asignatura = asignatura.id_asignatura and" +
                             " curso.aulas = aula.numero and '" +
                               dni_profesor + "' = profesor_asignatura.dni_profesor and" +
                             " asignatura.id_asignatura = profesor_asignatura.id_asignatura;";
-                dataAdapter = new SQLiteDataAdapter(sql, connection);
 
-                
+                dataAdapter = new SQLiteDataAdapter(sql, connection);
                 dataSet.Reset();
 
                 DataTable dt = new DataTable();
@@ -1643,15 +1764,16 @@ namespace tp_lab_3
             }
         }
 
-        public void tablaExamenes(string dni, DataGridView dataGridView)
+        public void tablaExamenesAlumno(string dni, DataGridView dataGridView)
         {
             try
             {
                 conectar();
                 string sql = "select asignatura.nombre as 'materia',  primerParcial as 'Parcial 1', segundoParcial as 'Parcial 2', tercerParcial as 'Parcial 3', " +
                                 " PrimerRecuperatorio as  'Recu. 1', segundoRecuperatorio as  'Recu. 2' " +
-                                " from examen, asignatura, alumno " +
-                                " where '" + dni + "' = examen.dni_alumno;";
+                                " from examen, asignatura " +
+                                " where '" + dni + "' = examen.dni_alumno and" +
+                                " asignatura.id_asignatura = examen.id_asignatura;";
 
                 dataAdapter = new SQLiteDataAdapter(sql, connection);
 
@@ -1676,6 +1798,41 @@ namespace tp_lab_3
             }
         }
         
+        public void tablaExamenesProfesor(string dni, DataGridView dataGridView)
+        {
+            try
+            {
+                conectar();
+                string sql = "select alumno.apellido || ' ' || alumno.nombre as 'alumno', alumno.dni, primerParcial as 'Parcial 1', segundoParcial as 'Parcial 2', tercerParcial as 'Parcial 3', " +
+                "PrimerRecuperatorio as  'Recu 1', segundoRecuperatorio as  'Recu 2' " +
+                "from examen inner join asignatura, profesor_asignatura, alumno " +
+                "where examen.id_asignatura = asignatura.id_asignatura and " + 
+                "examen.id_asignatura = profesor_asignatura.id_asignatura and '" +
+                 dni + "' = profesor_asignatura.dni_profesor; ";
+
+                dataAdapter = new SQLiteDataAdapter(sql, connection);
+
+                dataSet.Reset();
+
+                DataTable dt = new DataTable();
+                dataAdapter.Fill(dataSet);
+
+                dt = dataSet.Tables[0];
+
+                dataGridView.DataSource = dt;
+
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Error: " + e);
+            }
+            finally
+            {
+                desconectar();
+            }
+        }
+
         /// <summary>
         /// carga los alumnos que cursen esa materia
         /// </summary>
@@ -1719,10 +1876,10 @@ namespace tp_lab_3
             {
                 conectar();
                 string sql = "select asignatura.nombre, asignatura.id_asignatura as  'numero identificador', profesor.nombre || ' ' || profesor.apellido as 'Profesor' " +
-                             " from asignatura, profesor, profesor_asignatura, curso, curso_asignatura " +
-                             " where curso.año = curso_asignatura.año and " +
-                             " curso.division = curso_asignatura.division and " +
-                             " asignatura.id_asignatura = curso_asignatura.id_asignatura and " +
+                             " from asignatura, profesor inner join curso_asignatura, profesor_asignatura " +
+                             " where '" + año + "' = curso_asignatura.año and " +
+                             "'" + division + "' = curso_asignatura.division and " +
+                             "asignatura.id_asignatura = curso_asignatura.id_asignatura and" +
                              " profesor.dni = profesor_asignatura.dni_profesor and " +
                              " asignatura.id_asignatura = profesor_asignatura.id_asignatura;";
 
@@ -1748,6 +1905,7 @@ namespace tp_lab_3
                 desconectar();
             }
         }
+
 
         #endregion
 
@@ -1876,7 +2034,37 @@ namespace tp_lab_3
                 desconectar();
             }
         }
-           
+
+        public void comboboxAsignaturas(string año, string division, ComboBox comboBox)
+        {
+            try
+            {
+                conectar();
+                string sql = "select asignatura.id_asignatura, asignatura.nombre || ' ' || asignatura.id_asignatura as 'identificador'" +
+                             " from asignatura;";
+
+                dataAdapter = new SQLiteDataAdapter(sql, connection);
+
+                DataSet ds = new DataSet();
+                ds.Reset();
+
+                dataAdapter.Fill(ds);
+
+                comboBox.DataSource = ds.Tables[0];//dt;
+
+
+                comboBox.DisplayMember = "identificador"; //Campo de la db que deseamos mostrar
+                comboBox.ValueMember = "id_asignatura";
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error: " + e);
+            }
+            finally
+            {
+                desconectar();
+            }
+        }
 
         #endregion
         //
@@ -1907,6 +2095,14 @@ namespace tp_lab_3
             var result = MessageBox.Show(mensaje, caption,
                                          MessageBoxButtons.OK,
                                          MessageBoxIcon.Error);
+        }
+
+        public void mostrarMensajeGuardado(string mensaje)
+        {
+            const string titulo = "Datos Guardados";
+            var result = MessageBox.Show(mensaje, titulo,
+                                         MessageBoxButtons.OK,
+                                         MessageBoxIcon.Information);
         }
 
         public void SaveDatabase(DataSet cambios)
