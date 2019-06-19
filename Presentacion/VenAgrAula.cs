@@ -40,9 +40,7 @@ namespace Presentacion
                 conexion.guardarAula(numero, capacidad, internet, proyector);
 
                 padre.actualizarTabla();
-                MessageBox.Show("Se guardo correctamete");
-
-                
+                MessageBox.Show("Se guardo correctamete");                
             }
             else MessageBox.Show("No se pudo guardar");
 

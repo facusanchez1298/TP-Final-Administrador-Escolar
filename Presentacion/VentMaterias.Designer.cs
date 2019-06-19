@@ -35,7 +35,6 @@
             // btnBuscar
             // 
             this.btnBuscar.FlatAppearance.BorderSize = 0;
-            this.btnBuscar.Location = new System.Drawing.Point(517, 15);
             // 
             // btnCerrar
             // 
@@ -60,13 +59,14 @@
             this.btnElliminar.Location = new System.Drawing.Point(309, 401);
             this.btnElliminar.Click += new System.EventHandler(this.btnElliminar_Click);
             // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(146, 20);
-            // 
             // errorTxtBox1
             // 
             this.errorTxtBox1.Location = new System.Drawing.Point(229, 20);
+            this.errorTxtBox1.TextChanged += new System.EventHandler(this.errorTxtBox1_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(146, 20);
             // 
             // pictureBox1
             // 

@@ -59,5 +59,13 @@ namespace Presentacion
 
             }
         }
+
+        public void deseleccionar()
+        {
+            foreach (DataGridViewRow dr in dataGridView1.SelectedRows)
+            {
+                dr.Selected = false;
+            }
+        }
     }
 }

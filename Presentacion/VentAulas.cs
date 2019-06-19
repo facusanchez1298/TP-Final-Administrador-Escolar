@@ -30,8 +30,12 @@ namespace Presentacion
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            VenEdiAula NuevaVentana = new VenEdiAula(this);
-            NuevaVentana.ShowDialog();
+            if (seleccionado != null)
+            {
+                VenEdiAula NuevaVentana = new VenEdiAula(this, seleccionado); //que se envien los datos
+                NuevaVentana.ShowDialog();
+            }
+            else conexion.mostrarMensaje("debe seleccionar el aula que quiere editar");
         }
 
         private void VentAulas_Load(object sender, EventArgs e)

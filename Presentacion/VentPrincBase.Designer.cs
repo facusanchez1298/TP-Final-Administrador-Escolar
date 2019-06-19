@@ -56,7 +56,6 @@
             this.TitleBar.Controls.Add(this.btnRestaurar);
             this.TitleBar.Controls.Add(this.btnMaximizar);
             this.TitleBar.Size = new System.Drawing.Size(890, 40);
-            this.TitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseDown);
             this.TitleBar.Controls.SetChildIndex(this.btnCerrar, 0);
             this.TitleBar.Controls.SetChildIndex(this.btnMinimizar, 0);
             this.TitleBar.Controls.SetChildIndex(this.btnMaximizar, 0);
@@ -67,20 +66,18 @@
             // 
             this.panel1.Location = new System.Drawing.Point(0, 505);
             this.panel1.Size = new System.Drawing.Size(890, 15);
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // btnMinimizar
             // 
             this.btnMinimizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMinimizar.Location = new System.Drawing.Point(1938, 12);
+            this.btnMinimizar.Location = new System.Drawing.Point(3058, 12);
             this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             // 
             // btnCerrar
             // 
             this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCerrar.Location = new System.Drawing.Point(1422, 12);
+            this.btnCerrar.Location = new System.Drawing.Point(2542, 12);
             this.btnCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click_1);
             // 
             // btnMaximizar
             // 
@@ -122,9 +119,11 @@
             this.MenuVertical.Size = new System.Drawing.Size(250, 465);
             this.MenuVertical.TabIndex = 2;
             this.MenuVertical.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelMenu_MouseDown);
+            this.MenuVertical.MouseLeave += new System.EventHandler(this.MenuVertical_MouseLeave);
             // 
             // btnCerrarSesion
             // 
+            this.btnCerrarSesion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCerrarSesion.FlatAppearance.BorderSize = 0;
             this.btnCerrarSesion.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
             this.btnCerrarSesion.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));

@@ -122,11 +122,11 @@
             // 
             // btnMinimizar
             // 
-            this.btnMinimizar.Location = new System.Drawing.Point(602, 12);
+            this.btnMinimizar.Location = new System.Drawing.Point(746, 12);
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(646, 12);
+            this.btnCerrar.Location = new System.Drawing.Point(790, 12);
             // 
             // btnCargarExamenes
             // 

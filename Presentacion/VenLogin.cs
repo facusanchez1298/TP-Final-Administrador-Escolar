@@ -15,8 +15,6 @@ namespace Presentacion
 {
     public partial class VenLogin : FormBase
     {
-        string dni;
-
         Conexion conexion;
         public VenLogin()
         {
@@ -61,7 +59,7 @@ namespace Presentacion
                 {
                     if (conexion.iniciarSesion(usuario, contraseña, rBtnAdministrador.Text))
                     {
-                        VentAdministrador NuevaVentana = new VentAdministrador();
+                        VentAdministrador NuevaVentana = new VentAdministrador(dni);
                         NuevaVentana.Show();
                         NuevaVentana.FormClosed += cerrarSesion;
                         this.Hide();

@@ -28,5 +28,7 @@ namespace Presentacion
             dataGridView1.Columns[0].Visible = false;
             
         }
+
+        
     }
 }

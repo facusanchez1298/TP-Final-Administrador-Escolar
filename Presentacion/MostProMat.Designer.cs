@@ -39,21 +39,21 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Presentacion.Properties.Resources.book;
-            this.pictureBox1.Location = new System.Drawing.Point(552, 65);
-            this.pictureBox1.Size = new System.Drawing.Size(213, 199);
+            this.pictureBox1.Location = new System.Drawing.Point(494, 65);
+            this.pictureBox1.Size = new System.Drawing.Size(140, 140);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             // 
             // btnSalir
             // 
             this.btnSalir.FlatAppearance.BorderSize = 0;
-            this.btnSalir.Location = new System.Drawing.Point(552, 342);
-            this.btnSalir.Size = new System.Drawing.Size(213, 35);
+            this.btnSalir.Location = new System.Drawing.Point(494, 339);
+            this.btnSalir.Size = new System.Drawing.Size(140, 38);
             // 
             // MostProMat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(646, 450);
             this.Name = "MostProMat";
             this.Text = "MostProMat";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

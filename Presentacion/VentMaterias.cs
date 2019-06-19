@@ -47,8 +47,12 @@ namespace Presentacion
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            VenEdiMateria NuevaVentana = new VenEdiMateria(this);
-            NuevaVentana.ShowDialog();
+            if (seleccionado != null)
+            {
+                VenEdiMateria NuevaVentana = new VenEdiMateria(this, seleccionado);
+                NuevaVentana.ShowDialog();
+            }
+            else conexion.mostrarMensaje("Debe seleccionar la materia que quiere editar");
         }
 
         internal void actualizarTabla()
@@ -63,6 +67,11 @@ namespace Presentacion
                 conexion.removerAsignatura((int)seleccionado.Cells["id_asignatura"].Value);
                 actualizarTabla();
             }
+        }
+
+        private void errorTxtBox1_TextChanged(object sender, EventArgs e)
+        {
+            conexion.tablaMaterias(dataGridView1).DefaultView.RowFilter = $"Asignatura LIKE '{errorTxtBox1.Text}%'";
         }
     }
 }

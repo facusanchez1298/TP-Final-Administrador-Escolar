@@ -29,30 +29,8 @@ namespace Presentacion
             this.Close();
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-           
-               /* Dentro de esto tenes que poner la conexion a la base de datos
-                if (Utilidades.ValidarFormulario(this, errorProvider1) == false)
-                {
+       
 
-
-
-                    
-
-                }
-                else
-                {
-                    //msgError("Error no se puede realizar la acción...");
-                  
-                }*/
-
-            
-        }
-
-        private void VenAgr_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            
-        }
+       
     }
 }

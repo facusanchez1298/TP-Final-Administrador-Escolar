@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.errorTxtBox1 = new MiLibreria.ErrorTxtBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -36,19 +35,9 @@
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label1.Location = new System.Drawing.Point(139, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 21);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Nombre:";
             // 
             // errorTxtBox1
             // 
@@ -163,6 +152,17 @@
             this.btnCerrar.UseVisualStyleBackColor = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label1.Location = new System.Drawing.Point(149, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 21);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Nombre:";
+            // 
             // FormEdicion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -171,12 +171,12 @@
             this.ClientSize = new System.Drawing.Size(664, 477);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.errorTxtBox1);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnElliminar);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnCerrar);
+            this.Controls.Add(this.label1);
             this.Name = "FormEdicion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormEdicion";
@@ -192,8 +192,8 @@
         public System.Windows.Forms.Button btnEditar;
         public System.Windows.Forms.Button btnAgregar;
         public System.Windows.Forms.Button btnElliminar;
-        public System.Windows.Forms.Label label1;
         public MiLibreria.ErrorTxtBox errorTxtBox1;
         public System.Windows.Forms.DataGridView dataGridView1;
+        public System.Windows.Forms.Label label1;
     }
 }

@@ -16,6 +16,25 @@ namespace Presentacion
         {
             InitializeComponent();
         }
+
+        //          esto era para que cuando pasas el mouse se muestre el menu y cuando lo sacaras se ocultara
+        //    this.MenuVertical.Controls.Cast<Control>().ToList().ForEach(q => q.MouseHover += Q_MouseHover);
+        //    this.MenuVertical.Controls.Cast<Control>().ToList().ForEach(q => q.MouseLeave += Q_MouseLeave);
+
+        //}
+
+        //private void Q_MouseLeave(object sender, EventArgs e)
+        //{
+        //    MenuVertical.Width = 250;
+        //    btnPanel.Location = new Point(250, 0);
+        //}
+
+        //private void Q_MouseHover(object sender, EventArgs e)
+        //{
+        //    MenuVertical.Width = 250;
+        //    btnPanel.Location = new Point(250, 0);
+        //}
+
         // esto es para poder mover la ventana con el mouse
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
@@ -26,18 +45,12 @@ namespace Presentacion
 
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+       
         //Capturamos posicion y tamaño antes de maximizar para restaurar
         int lx, ly;
         int sw, sh;
 
-        private void TitleBar_MouseDown(object sender, MouseEventArgs e)
-        {
-
-        }
+       
 
         private void panelMenu_MouseDown(object sender, MouseEventArgs e)
         {
@@ -87,9 +100,12 @@ namespace Presentacion
             }
         }
 
-        public void btnCerrar_Click_1(object sender, EventArgs e)
+
+
+        private void MenuVertical_MouseLeave(object sender, EventArgs e)
         {
-          
+            MenuVertical.Width = 55;
+            btnPanel.Location = new Point(55, 0);
         }
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
@@ -106,49 +122,6 @@ namespace Presentacion
             this.Location = new Point(lx, ly);
         }
 
-        /*//METODO PARA ABRIR FORM DENTRO DE PANEL-----------------------------------------------------
-        public void AbrirFormEnPanel<Forms>() where Forms : Form, new()
-        {
-            Form formulario;
-            formulario = panelformularios.Controls.OfType<Forms>().FirstOrDefault();
-
-            //si el formulario/instancia no existe, creamos nueva instancia y mostramos
-            if (formulario == null)
-            {
-                formulario = new Forms();
-                formulario.TopLevel = false;
-                formulario.FormBorderStyle = FormBorderStyle.None;
-                formulario.Dock = DockStyle.Fill;
-                panelformularios.Controls.Add(formulario);
-                panelformularios.Tag = formulario;
-                formulario.Show();
-
-                formulario.BringToFront();
-                //formulario.FormClosed += new FormClosedEventHandler(CloseForms);               
-            }
-            else
-            {
-
-                //si la Formulario/instancia existe, lo traemos a frente
-                formulario.BringToFront();
-
-                //Si la instancia esta minimizada mostramos
-                if (formulario.WindowState == FormWindowState.Minimized)
-                {
-                    formulario.WindowState = FormWindowState.Normal;
-                }
-
-            }
-            //Esto es para cuendo cierre los formularios q me vuelva el boton al mismo color del panel
-             void CloseForms(object sender, FormClosedEventArgs e)
-            {
-                if (Application.OpenForms["Form1"] == null)
-                    btnAulas.BackColor = Color.FromArgb(25, 38, 70);
-               /* if (Application.OpenForms["Vent"] == null)
-                    button2.BackColor = Color.FromArgb(25, 38, 70);
-                if (Application.OpenForms["Form3"] == null)
-                    button3.BackColor = Color.FromArgb(25, 38, 70);
-            }
-        }*/
+       
     }
 }

@@ -23,6 +23,8 @@ namespace Presentacion
             conexion = new Conexion();
             InitializeComponent();
             dataGridView1.RowHeadersVisible = false;
+
+            
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -54,5 +56,18 @@ namespace Presentacion
         {
             seleccionado = null;
         }
+
+        private void errorTxtBox1_TextChanged(object sender, EventArgs e)
+        {
+            conexion.tablaMaterias(dataGridView1).DefaultView.RowFilter = $"  LIKE '{errorTxtBox1.Text}%'";
+        }
+
+        //private void FormEdicion_Load(object sender, EventArgs e)
+        //{
+        //    foreach (DataGridViewColumn columna in dataGridView1.Columns)
+        //    {
+        //        comboBox1.Items.Add(columna.Name);
+        //    }
+        //}
     }
 }

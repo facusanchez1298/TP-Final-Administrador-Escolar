@@ -32,7 +32,6 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.btnAlumnos = new System.Windows.Forms.Button();
             this.btnProf = new System.Windows.Forms.Button();
-            this.btnAdm = new System.Windows.Forms.Button();
             this.btnCursos = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.btnPanel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
@@ -77,7 +76,7 @@
             this.btnPersonal.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));
             this.btnPersonal.Image = global::Presentacion.Properties.Resources.empleados;
             this.btnPersonal.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPersonal.Location = new System.Drawing.Point(-6, 147);
+            this.btnPersonal.Location = new System.Drawing.Point(0, 239);
             this.btnPersonal.Size = new System.Drawing.Size(256, 40);
             this.btnPersonal.Text = "      Cambiar Contraseña";
             this.btnPersonal.Click += new System.EventHandler(this.btnPersonal_Click);
@@ -96,7 +95,6 @@
             // MenuVertical
             // 
             this.MenuVertical.Controls.Add(this.btnCursos);
-            this.MenuVertical.Controls.Add(this.btnAdm);
             this.MenuVertical.Controls.Add(this.btnProf);
             this.MenuVertical.Controls.Add(this.btnAlumnos);
             this.MenuVertical.Controls.SetChildIndex(this.btnCerrarSesion, 0);
@@ -105,7 +103,6 @@
             this.MenuVertical.Controls.SetChildIndex(this.btnMaterias, 0);
             this.MenuVertical.Controls.SetChildIndex(this.btnAlumnos, 0);
             this.MenuVertical.Controls.SetChildIndex(this.btnProf, 0);
-            this.MenuVertical.Controls.SetChildIndex(this.btnAdm, 0);
             this.MenuVertical.Controls.SetChildIndex(this.btnCursos, 0);
             // 
             // btnCerrarSesion
@@ -156,7 +153,7 @@
             this.btnAlumnos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnAlumnos.Image = global::Presentacion.Properties.Resources.student__3_;
             this.btnAlumnos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAlumnos.Location = new System.Drawing.Point(0, 193);
+            this.btnAlumnos.Location = new System.Drawing.Point(0, 147);
             this.btnAlumnos.Name = "btnAlumnos";
             this.btnAlumnos.Size = new System.Drawing.Size(250, 40);
             this.btnAlumnos.TabIndex = 3;
@@ -174,31 +171,13 @@
             this.btnProf.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnProf.Image = global::Presentacion.Properties.Resources.teacher__1_;
             this.btnProf.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProf.Location = new System.Drawing.Point(0, 239);
+            this.btnProf.Location = new System.Drawing.Point(0, 193);
             this.btnProf.Name = "btnProf";
             this.btnProf.Size = new System.Drawing.Size(250, 40);
             this.btnProf.TabIndex = 4;
             this.btnProf.Text = "Profesores";
             this.btnProf.UseVisualStyleBackColor = true;
             this.btnProf.Click += new System.EventHandler(this.btnProf_Click);
-            // 
-            // btnAdm
-            // 
-            this.btnAdm.FlatAppearance.BorderSize = 0;
-            this.btnAdm.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
-            this.btnAdm.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));
-            this.btnAdm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdm.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnAdm.Image = global::Presentacion.Properties.Resources.admin_with_cogwheels;
-            this.btnAdm.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdm.Location = new System.Drawing.Point(0, 285);
-            this.btnAdm.Name = "btnAdm";
-            this.btnAdm.Size = new System.Drawing.Size(250, 40);
-            this.btnAdm.TabIndex = 5;
-            this.btnAdm.Text = "Administrador";
-            this.btnAdm.UseVisualStyleBackColor = true;
-            this.btnAdm.Click += new System.EventHandler(this.btnAdm_Click);
             // 
             // btnCursos
             // 
@@ -245,7 +224,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox2;
-        public System.Windows.Forms.Button btnAdm;
         public System.Windows.Forms.Button btnProf;
         public System.Windows.Forms.Button btnAlumnos;
         public System.Windows.Forms.Button btnCursos;

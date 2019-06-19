@@ -50,8 +50,14 @@ namespace Presentacion
 
         private void editarCurso(object sender, EventArgs e)
         {
-            VenEdiCurso NuevaVentana = new VenEdiCurso(this);
-            NuevaVentana.ShowDialog();
+            if (seleccionado != null)
+            {
+                VenEdiCurso NuevaVentana = new VenEdiCurso(this, seleccionado);
+                NuevaVentana.ShowDialog();
+
+                
+            }
+            else conexion.mostrarMensaje("selecciones el curso que quiere editar");
         }
 
         private void eliminarCurso(object sender, EventArgs e)

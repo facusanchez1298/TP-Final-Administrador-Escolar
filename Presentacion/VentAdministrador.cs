@@ -12,8 +12,12 @@ namespace Presentacion
 {
     public partial class VentAdministrador : VentPrincBase
     {
-        public VentAdministrador()
+
+        string dni;
+
+        public VentAdministrador(string dni)
         {
+            this.dni = dni;
             InitializeComponent();
         }
 
@@ -31,8 +35,8 @@ namespace Presentacion
 
         private void btnAdm_Click(object sender, EventArgs e)
         {
-            btnAdm.BackColor = Color.FromArgb(12, 63, 92);
-            AbrirFormEnPanel<VentAdministradores>();
+            //btnAdm.BackColor = Color.FromArgb(12, 63, 92);
+            //AbrirFormEnPanel<VentAdministradores>();
         }
 
        
@@ -49,40 +53,40 @@ namespace Presentacion
         {
             AbrirFormEnPanel<VentMaterias>();
         }
+
         //METODO PARA ABRIR FORM DENTRO DE PANEL-----------------------------------------------------
-        private void AbrirFormEnPanel<Forms>() where Forms : Form, new()
+        public void AbrirFormEnPanel<Form>() where Form : FormEdicion, new()
         {
             Form formulario;
-            formulario = panelformularios.Controls.OfType<Forms>().FirstOrDefault();
-            
+            formulario = panelformularios.Controls.OfType<Form>().FirstOrDefault();
+
             //si el formulario/instancia no existe, creamos nueva instancia y mostramos
             if (formulario == null)
             {
-                formulario = new Forms();
+                formulario = new Form();
                 formulario.TopLevel = false;
                 formulario.FormBorderStyle = FormBorderStyle.None;
                 formulario.Dock = DockStyle.Fill;
+                
                 panelformularios.Controls.Add(formulario);
                 panelformularios.Tag = formulario;
                 formulario.Show();
+                formulario.FormClosed += CloseForms;
+
+
+
+
+
                 formulario.BringToFront();
-                formulario.FormClosed += new FormClosedEventHandler(CloseForms );
 
             }
-            else
-            {
+            else formulario.BringToFront();
 
-                //si la Formulario/instancia existe, lo traemos a frente
-                formulario.BringToFront();
-                
-                //Si la instancia esta minimizada mostramos
-                if (formulario.WindowState == FormWindowState.Minimized)
-                {
-                    formulario.WindowState = FormWindowState.Normal;
-                }
-
-            }
         }
+
+       
+
+
         private void CloseForms(object sender, FormClosedEventArgs e)
         {
 
@@ -101,10 +105,10 @@ namespace Presentacion
                  btnAlumnos.BackColor = Color.FromArgb(25, 38, 70);
              }
 
-             if (Application.OpenForms["VentAdministradores"]==null)
-             {
-                 btnAdm.BackColor = Color.FromArgb(25, 38, 70);
-             }
+             //if (Application.OpenForms["VentAdministradores"]==null)
+             //{
+             //    btnAdm.BackColor = Color.FromArgb(25, 38, 70);
+             //}
 
              if (Application.OpenForms["VentAulas"]==null)
              {
@@ -137,7 +141,7 @@ namespace Presentacion
 
         private void btnPersonal_Click(object sender, EventArgs e)
         {
-            AbrirFormEnPanel<VenEdiAdm>();
+            //AbrirFormEnPanel<>(dni);
         }
     }
 }
