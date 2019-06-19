@@ -36,7 +36,7 @@ namespace tp_lab_3
                                             "FOREIGN KEY(dni_alumno) REFERENCES Alumno(dni_alumno)," +
                                             "FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id_asignatura));";
 
-        
+       
 
         string creatTablaProf_Asig = "create table if not exists Profesor_Asignatura(" +
                                             "dni_profesor int not null," +
@@ -657,10 +657,9 @@ namespace tp_lab_3
             try
             {
                 conectar();
-                string sql = "insert into Examen(" + parcial + ") " +
-                             "values (" + nota + ")" +
-                             "where examen.dni_alumno = " + dni +
-                             "examen.id_asignatura = " + id_asignatura;
+                string sql = " update Examen set " + parcial + " = " + nota +
+                             " where examen.dni_alumno = " + dni +
+                             " and examen.id_asignatura = " + id_asignatura;
 
                 //agregar un examen, como se para que materia es la nota?????
 
@@ -1019,7 +1018,6 @@ namespace tp_lab_3
             }
             catch (Exception e)
             {
-
                 throw new Exception("Error: " + e);
             }
             finally
@@ -1158,6 +1156,83 @@ namespace tp_lab_3
             {
 
                 throw new Exception("Error: " + e);
+            }
+        }
+        //
+        //
+        //
+        //      Editar elementos
+        //
+        //
+        //
+        public void editarAula(int numero, int capacidad, bool internet, bool proyector)
+        {
+            try
+            {
+                conectar();
+                string sql = " update  aula set capacidad = "+ capacidad+ ", internet = " + internet +
+                             ", proyector = " + proyector +
+                             " where numero = " + numero;
+
+                command = new SQLiteCommand(sql, this.connection);
+                command.ExecuteNonQuery();
+                command.Connection.Close();
+            }
+            catch (SQLiteException e)
+            {
+                mostrarMensaje("Error guardando el registro: " + e.Message);
+            }
+            finally
+            {
+                desconectar();
+            }
+        }
+
+        public void editarCurso(string año, string division, string aula)
+        {
+            try
+            {
+                conectar();
+                string sql = " update curso set aulas = " + aula +
+                             " where año = '" + año + "' and division = '" + division + "'";
+
+                command = new SQLiteCommand(sql, this.connection);
+                command.ExecuteNonQuery();
+                command.Connection.Close();
+            }
+            catch (SQLiteException e)
+            {
+                mostrarMensaje("Error guardando el registro: " + e.Message);
+            }
+            finally
+            {
+                desconectar();
+            }
+        }
+
+        public void editarMateria(string id_asignatura, string materia, string profesor)
+        {
+            try
+            {
+                conectar();
+                string sql = "update asignatura " +
+                             "set nombre = '" + materia +
+                             "' where asignatura.id_asignatura = " + id_asignatura + ";" +
+                             " update profesor_asignatura " +
+                             " set dni_profesor = " + profesor + 
+                             " where id_asignatura = " + id_asignatura + ";";
+
+                command = new SQLiteCommand(sql, this.connection);
+                command.ExecuteNonQuery();
+                command.Connection.Close();
+            }
+            catch (SQLiteException e)
+            {
+                mostrarMensaje("Error guardando el registro: " + e.Message);
+            }
+            finally
+            {
+                desconectar();
             }
         }
 
@@ -1602,7 +1677,7 @@ namespace tp_lab_3
             }
         }
 
-        public void tablaAlumnos(DataGridView dataGridView, int id_asignatura)
+        public DataTable tablaAlumnos(DataGridView dataGridView, int id_asignatura)
         {
             try
             {
@@ -1619,6 +1694,8 @@ namespace tp_lab_3
                 dt = ds.Tables[0];
 
                 dataGridView.DataSource = dt;
+
+                return dt;
             }
             catch (Exception e)
             {
@@ -1660,12 +1737,12 @@ namespace tp_lab_3
             }
         }
 
-        public void tablaMaterias(DataGridView dataGridView)
+        public DataTable tablaMaterias(DataGridView dataGridView)
         {
             try
             {
                 conectar();
-                string sql = "select asignatura.nombre, asignatura.id_asignatura, profesor.Nombre, profesor.apellido " +
+                string sql = "select asignatura.nombre, asignatura.id_asignatura as 'Identificador', profesor.Nombre || ' ' || profesor.apellido as Profesor " +
                             "from asignatura inner join profesor, profesor_asignatura " +
                             "where asignatura.id_asignatura = profesor_asignatura.id_asignatura and profesor.dni = profesor_asignatura.dni_profesor";
                 dataAdapter = new SQLiteDataAdapter(sql, connection);
@@ -1678,10 +1755,10 @@ namespace tp_lab_3
 
                 dt = ds.Tables[0];
                 dt.Columns[0].ColumnName = "Asignatura";
-                dt.Columns[2].ColumnName = "Nombre del profesor";
-                dt.Columns[3].ColumnName = "apellido del profesor";
 
                 dataGridView.DataSource = dt;
+
+                return dt;
             }
             catch (Exception e)
             {
@@ -1691,6 +1768,7 @@ namespace tp_lab_3
             finally
             {
                 desconectar();
+                
             }
         }
 
@@ -1701,7 +1779,7 @@ namespace tp_lab_3
                 conectar();
 
                 
-                string sql ="select  aula.numero as ' numero del aula ', asignatura.nombre as 'materia' " +
+                string sql ="select  aula.numero as 'aula', asignatura.nombre as 'materia', asignatura.id_asignatura as 'id' " +
                             " from profesor_asignatura, aula, asignatura, curso, curso_asignatura where" +
                             " curso_asignatura.id_asignatura = asignatura.id_asignatura and" +
                             " curso.aulas = aula.numero and '" +
@@ -1717,6 +1795,7 @@ namespace tp_lab_3
                 dt = dataSet.Tables[0];
 
                 dataGridView.DataSource = dt;
+                
                 
             }
             catch (Exception e)
@@ -1764,7 +1843,7 @@ namespace tp_lab_3
             }
         }
 
-        public void tablaExamenesAlumno(string dni, DataGridView dataGridView)
+        public void tablaExamenesAlumno(string dni,  DataGridView dataGridView)
         {
             try
             {
@@ -1798,15 +1877,15 @@ namespace tp_lab_3
             }
         }
         
-        public void tablaExamenesProfesor(string dni, DataGridView dataGridView)
+        public void tablaExamenesProfesor(string dni, int id_asignatura, DataGridView dataGridView)
         {
             try
             {
                 conectar();
                 string sql = "select alumno.apellido || ' ' || alumno.nombre as 'alumno', alumno.dni, primerParcial as 'Parcial 1', segundoParcial as 'Parcial 2', tercerParcial as 'Parcial 3', " +
                 "PrimerRecuperatorio as  'Recu 1', segundoRecuperatorio as  'Recu 2' " +
-                "from examen inner join asignatura, profesor_asignatura, alumno " +
-                "where examen.id_asignatura = asignatura.id_asignatura and " + 
+                "from examen inner join profesor_asignatura, alumno " +
+                "where examen.id_asignatura = " + id_asignatura + " and " + 
                 "examen.id_asignatura = profesor_asignatura.id_asignatura and '" +
                  dni + "' = profesor_asignatura.dni_profesor; ";
 
